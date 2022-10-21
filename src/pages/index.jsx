@@ -1,9 +1,11 @@
+import { Button, ThemeProvider } from "@mui/material"
 import Head from "next/head"
-import NavBar from "../components/NavBar"
+import { useSelector } from "react-redux"
+import NavBar from "../ui/components/NavBar"
+import { darkTheme } from "../ui/themes/darkTheme"
 
 
 export default function Home() {
-  console.log('poggers')
   return(
     <>
       <Head>
@@ -14,7 +16,7 @@ export default function Home() {
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin></link>
         <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;700&display=swap" rel="stylesheet"></link>
       </Head>
-      <NavBar />
+        <NavBar />
     </>
   )
 }
