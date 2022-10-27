@@ -1,7 +1,7 @@
 import { Button } from "@mui/material";
 import styled from "styled-components";
 
-export const MovieWrapper = styled.div`
+export const MainBannerWrapper = styled.div`
     margin: 20px 0;
     background-color: #000;
     background-image: url('https://www.themoviedb.org/t/p/w533_and_h300_bestv2/14QbnygCuTO0vl7CAFmPf1fgZfV.jpg');
@@ -16,7 +16,7 @@ export const MovieWrapper = styled.div`
 
 `
 
-export const MovieInfos = styled.div`
+export const MainBannerInfos = styled.div`
     display: flex;
     justify-content: center;
     flex-direction: column;
