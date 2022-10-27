@@ -6,6 +6,7 @@ import HeaderAppBar from "../ui/components/HeaderAppBar"
 import MainBanner from "../ui/home/MainBanner"
 import NavBar from "../ui/components/NavBar"
 import MovieCard from "../ui/components/MovieCard"
+import { Movies } from "./style"
 
 
 export default function Home() {
@@ -17,12 +18,37 @@ export default function Home() {
     <HeaderAppBar />
     <Container>
       <MainBanner />
-      <Box>
+      <Movies>
         <MovieCard
           title={'Rick and Morty'}
           img="https://www.themoviedb.org/t/p/w220_and_h330_face/cvhNj9eoRBe5SxjCbQTkh05UP5K.jpg"
         />
-      </Box>
+        
+        <MovieCard
+          title={'Rick and Morty'}
+          img="https://www.themoviedb.org/t/p/w220_and_h330_face/cvhNj9eoRBe5SxjCbQTkh05UP5K.jpg"
+        />
+
+        <MovieCard
+          title={'Rick and Morty'}
+          img="https://www.themoviedb.org/t/p/w220_and_h330_face/cvhNj9eoRBe5SxjCbQTkh05UP5K.jpg"
+        />
+        
+      <MovieCard
+        title={'Rick and Morty'}
+        img="https://www.themoviedb.org/t/p/w220_and_h330_face/cvhNj9eoRBe5SxjCbQTkh05UP5K.jpg"
+      />
+
+      <MovieCard
+        title={'Rick and Morty'}
+        img="https://www.themoviedb.org/t/p/w220_and_h330_face/cvhNj9eoRBe5SxjCbQTkh05UP5K.jpg"
+      />
+
+      <MovieCard
+        title={'Rick and Morty'}
+        img="https://www.themoviedb.org/t/p/w220_and_h330_face/cvhNj9eoRBe5SxjCbQTkh05UP5K.jpg"
+      />
+      </Movies>
     </Container>
     </>
   )
