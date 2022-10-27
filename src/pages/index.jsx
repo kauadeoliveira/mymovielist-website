@@ -14,6 +14,9 @@ export default function Home() {
       <title>Home</title>
     </Head>
     <HeaderAppBar />
+    <Container>
+      <MainBanner />
+    </Container>
     </>
   )
 }

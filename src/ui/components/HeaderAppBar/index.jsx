@@ -1,20 +1,31 @@
-import { AppBar, Avatar, Box, IconButton, Toolbar } from "@mui/material";
-
-
+// Material UI imports
+import { 
+    AppBar,
+    Avatar,
+    Box,
+    IconButton,
+    Toolbar
+} from "@mui/material";
 import MenuSharpIcon from '@mui/icons-material/MenuSharp';
-import Search from "./Search";
-import NavBar from "../NavBar";
-import { useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { navBarSlice } from "../../../store/slices/navBarSlice";
-import { themeSlice } from "../../../store/slices/themeSlice";
-
-
 import DarkModeIcon from '@mui/icons-material/DarkMode';
 import LightModeIcon from '@mui/icons-material/LightMode';
 
+// Redux and Store imports
+import { 
+    useDispatch,
+    useSelector
+} from "react-redux";
+import { navBarSlice } from "../../../store/slices/navBarSlice";
+import { themeSlice } from "../../../store/slices/themeSlice";
 
+// My Components imports
+import Search from "./Search";
+import NavBar from "../NavBar";
 
+// React Imports
+import { useState } from "react";
+
+// My Component Function
 export default function HeaderAppBar() {
     const dispatch = useDispatch();
     const themeState = useSelector(store => store.theme.darkTheme)
