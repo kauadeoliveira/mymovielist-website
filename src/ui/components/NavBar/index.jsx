@@ -1,58 +1,52 @@
-import { Drawer, List, ListItem, ListItemButton, ListItemIcon, ListItemText, Paper, ToggleButton, ToggleButtonGroup, Toolbar } from "@mui/material";
-import { Box } from "@mui/system";
-
+// Material UI Imports
+import { 
+    Box,
+    Drawer,
+    List,
+    ListItem,
+    ListItemButton,
+    ListItemIcon,
+    ListItemText,
+    Toolbar,
+    useTheme
+} from "@mui/material";
 
 import WhatshotIcon from '@mui/icons-material/Whatshot';
 import HomeSharpIcon from '@mui/icons-material/HomeSharp';
-import LightModeIcon from '@mui/icons-material/LightMode';
-import DarkModeIcon from '@mui/icons-material/DarkMode';
 import FormatListBulletedSharpIcon from '@mui/icons-material/FormatListBulletedSharp';
+
+// React Imports
 import { useState } from "react";
-import { ToggleThemes } from "./styles";
+
+// Redux and Store Imports
 import { useDispatch, useSelector } from "react-redux";
-import { themeSlice } from "../../../store/slices/themeSlice";
+import { navBarSlice } from "../../../store/slices/navBarSlice";
+import { store } from "../../../store/store";
+import { Logo } from "./styles";
 
 
-export default function NavBar({ open }) {
-    const [theme, setTheme] = useState('light')
-    const themeState = useSelector(store => store.theme)
+// My Component Function
+export default function NavBar() {
+    const theme = useTheme()
+
+    // Handle open and close Navbar
+    const navBarState = useSelector(store => store.navBar.openNavBar)
     const dispatch = useDispatch()
-    console.log(open)
+   const handleOnClose = () => dispatch(navBarSlice.actions.open())
 
-
-    const handleTheme = (event, newValue) => {
-        setTheme(newValue)
-        dispatch(themeSlice.actions.changeTheme())
-        
-    }
     return(
         <Box component="nav" sx={{backgroundColor: 'black'}}>
             <Drawer 
-                open={false}
+                open={navBarState}
+                onClose={handleOnClose}
                 ModalProps={{
                     keepMounted: true,
                 }}
             >
                 <div>
                     <Toolbar>
-                        <h1>MyMovieList</h1>
+                        <Logo color={theme.palette.text.disabled}>MyMovieList</Logo>
                     </Toolbar>
-                    <ToggleThemes
-                        value={theme}
-                        exclusive
-                        onChange={handleTheme}
-                        size='small'
-                        color="primary"
-                    >
-                        <ToggleButton value="light">
-                            <LightModeIcon fontSize="small"/>
-                            Light
-                        </ToggleButton>
-                        <ToggleButton value="dark">
-                            <DarkModeIcon fontSize="small"/>
-                            Dark
-                        </ToggleButton>
-                    </ToggleThemes>
                     <List>
                     <ListItem disablePadding>
                             <ListItemButton>

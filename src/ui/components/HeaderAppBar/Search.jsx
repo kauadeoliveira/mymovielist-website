@@ -5,7 +5,6 @@ import SearchSharpIcon from '@mui/icons-material/SearchSharp';
 
 export default function Search() {
     const theme = useTheme()
-    console.log(theme)
     return(
         <SearchWrapper bdColor={theme.palette.text.primary}>
             <SearchIconWrapper sx={{color: theme.palette.text.primary}}>

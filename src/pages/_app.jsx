@@ -1,19 +1,31 @@
-// import '../assets/globals.css'
-import { CssBaseline, Paper } from '@mui/material'
-import { Provider, useSelector } from 'react-redux'
+// Material UI imports
+import { 
+  CssBaseline,
+  Paper,
+  createTheme,
+  ThemeProvider
+} from '@mui/material'
+
+// Redux and Store imports
+import {
+  Provider,
+  useDispatch,
+  useSelector 
+} from 'react-redux'
 import { store } from "../store/store"
-import { createTheme, ThemeProvider } from '@mui/material/styles'
-import { useEffect, useMemo, useState } from 'react'
+
+// React imports
+import {  useMemo, useState } from 'react'
 
 
+// My Component
 export default function MyApp({ Component, pageProps }) {
-  const {darkTheme} = store.getState().theme
-  const [modePalette, setModePalette] = useState()
-
-  store.subscribe(() => {setModePalette(!darkTheme)})
-
-  const configureTheme = (modePalette) => {
-    const mode = modePalette ? 'dark' : 'light'
+  // Mode theme
+  const [mode, setMode] = useState(false)
+  store.subscribe(() => setMode(store.getState().theme.darkTheme))
+  
+  // Configure Pallete
+  const configureTheme = () => {
     const lightPalete = {
       primary: {
         light: '#484848',
@@ -31,27 +43,20 @@ export default function MyApp({ Component, pageProps }) {
         main: '#ad1457',
         dark: '#78002e'
       },
-      text: {
-        primary: {
-          
-        }
-      }
     }
     return {
       palette: {
-        mode: mode, 
+        mode: mode ? 'light' : 'dark', 
         ...(mode === 'light' ? lightPalete : darkPalette)
       },
     }
   }
 
+    // Create Theme
+    const theme = useMemo(() => createTheme(configureTheme()), [mode])
   
 
-
-    const theme = useMemo(() => createTheme(configureTheme(modePalette)), [modePalette])
-  
-    console.log(theme)
-
+    // JSX
   return (
     <>
       <Provider store={store}>
