@@ -12,10 +12,11 @@ export const ImageCard = styled.div`
 
 export const TitleCard = styled.p`
     font-weight: bold;
-    font-size: .7rem;
-    margin: 5px 0;
+    font-size: .6rem;
+    margin: 2px 0;
     word-wrap: break-word;
-    color: #fff;
+    color: ${({textColor }) => textColor};
+    padding: 0 5px
 `
 
 export const CardWrapper = styled.div`
@@ -23,7 +24,6 @@ export const CardWrapper = styled.div`
     flex-flow: column-wrap;
     width: 100px;
     height: 150px;
-
     a{
         width: inherit;
         height: inherit;

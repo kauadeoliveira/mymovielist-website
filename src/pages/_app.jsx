@@ -32,9 +32,6 @@ export default function MyApp({ Component, pageProps }) {
         main: '#212121',
         dark: '#000000'
       },
-      background: {
-        paper: '#fff'
-      }
     }
 
     const darkPalette = {
