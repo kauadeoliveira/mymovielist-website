@@ -14,12 +14,12 @@ import { Movie } from "@mui/icons-material"
 
 
 export default function Home({ datas }) {
+  console.log(datas)
   return(
     <>
     <Head>
       <title>Home</title>
     </Head>
-    <HeaderAppBar />
     <Container>
       <MainBanner />
       <h3 style={{margin: 0}}>All Movies</h3>
@@ -29,6 +29,7 @@ export default function Home({ datas }) {
             <MovieCard 
             key={movie.id}
             title={movie.title}
+            rating={movie.vote_average}
             img={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
             />
           )

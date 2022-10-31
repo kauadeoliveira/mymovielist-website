@@ -17,22 +17,32 @@ import FormatListBulletedSharpIcon from '@mui/icons-material/FormatListBulletedS
 
 // React Imports
 import { useState } from "react";
+import { useEffect } from "react";
+import { useRef } from "react";
 
 // Redux and Store Imports
 import { useDispatch, useSelector } from "react-redux";
 import { navBarSlice } from "../../../store/slices/navBarSlice";
 import { store } from "../../../store/store";
-import { Logo } from "./styles";
+import { Logo, MyLink } from "./styles";
+import Link from "next/link";
+
 
 
 // My Component Function
 export default function NavBar() {
     const theme = useTheme()
 
-    // Handle open and close Navbar
+// Handle open and close Navbar
     const navBarState = useSelector(store => store.navBar.openNavBar)
     const dispatch = useDispatch()
-   const handleOnClose = () => dispatch(navBarSlice.actions.open())
+    const handleOnClose = () => dispatch(navBarSlice.actions.open())
+
+
+// Handle active page
+
+    const [pathname, setPathname] = useState('')
+    useEffect(() => setPathname(window.location.pathname), [])
 
     return(
         <Box component="nav" sx={{backgroundColor: 'black'}}>
@@ -49,6 +59,10 @@ export default function NavBar() {
                     </Toolbar>
                     <List>
                     <ListItem disablePadding>
+                        <MyLink
+                         href="/"
+                         className={pathname === '/' ? 'active' : undefined}
+                         > 
                             <ListItemButton>
                                 <ListItemIcon>
                                     <HomeSharpIcon />
@@ -57,17 +71,22 @@ export default function NavBar() {
                                     Home
                                 </ListItemText>
                             </ListItemButton>
-                        </ListItem>
-                        <ListItem disablePadding>
-                            <ListItemButton>
-                                <ListItemIcon>
-                                    <WhatshotIcon />
-                                </ListItemIcon>
-                                <ListItemText>
-                                    Trending
-                                </ListItemText>
-                            </ListItemButton>
-                        </ListItem>
+                        </MyLink>
+                    </ListItem>
+                        <MyLink 
+                         href="/trending"
+                         className={pathname === "/trending" ? 'active' : undefined}>
+                            <ListItem disablePadding>
+                                <ListItemButton>
+                                    <ListItemIcon>
+                                        <WhatshotIcon />
+                                    </ListItemIcon>
+                                    <ListItemText>
+                                        Trending
+                                    </ListItemText>
+                                </ListItemButton>
+                            </ListItem>
+                        </MyLink>
                         <ListItem disablePadding>
                             <ListItemButton>
                                 <ListItemIcon>
