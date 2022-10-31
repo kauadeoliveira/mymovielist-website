@@ -11,6 +11,7 @@ import { useEffect } from "react"
 import axios from "axios"
 import { apiKey } from "../utils/apiKey"
 import { Movie } from "@mui/icons-material"
+import Link from "next/link"
 
 
 export default function Home({ datas }) {
@@ -27,10 +28,11 @@ export default function Home({ datas }) {
         {datas.map(movie => {
           return(
             <MovieCard 
-            key={movie.id}
-            title={movie.title}
-            rating={movie.vote_average}
-            img={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
+              key={movie.id}
+              title={movie.title}
+              rating={movie.vote_average}
+              img={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
+              pathname={movie.id}
             />
           )
         })}

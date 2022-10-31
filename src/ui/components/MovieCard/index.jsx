@@ -2,10 +2,10 @@ import { useTheme } from "@mui/material";
 import Link from "next/link";
 import { CardWrapper, ImageCard, RatingLabel, TitleCard } from "./style";
 
-export default function MovieCard({ title, img, rating }) {
+export default function MovieCard({ title, img, rating, pathname}) {
     const theme = useTheme()
     return(
-    <Link href="a" style={{textDecoration: 'none'}}>
+    <Link href={`/movie/${pathname}`} style={{textDecoration: 'none'}}>
         <RatingLabel>
             {rating}
         </RatingLabel>
