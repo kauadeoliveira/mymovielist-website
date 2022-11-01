@@ -31,7 +31,7 @@ export default function Home({ datas }) {
               key={movie.id}
               title={movie.title}
               rating={movie.vote_average}
-              img={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
+              poster={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
               pathname={movie.id}
             />
           )

@@ -3,7 +3,7 @@ import styled from "styled-components";
 
 export const ImageCard = styled.div`
     background-color: black;
-    background-image: url(${({ bgImage }) => bgImage});
+    background-image: url(${({ poster }) => poster});
     background-size: contain;
     background-repeat: no-repeat;
     width: 100%;
