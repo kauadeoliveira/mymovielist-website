@@ -96,5 +96,12 @@ export const Description = styled.div`
             }
         }
     }
+`
+export const Cast = styled.section`
+    width: 100%;
 
+    .swiper{
+        height: 100%;
+        padding: 10px;
+    }
 `

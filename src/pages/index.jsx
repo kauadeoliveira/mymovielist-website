@@ -5,7 +5,7 @@ import { useSelector } from "react-redux"
 import HeaderAppBar from "../ui/components/HeaderAppBar"
 import MainBanner from "../ui/home/MainBanner"
 import NavBar from "../ui/components/NavBar"
-import MovieCard from "../ui/components/MovieCard"
+import MyCard from "../ui/components/MyCard"
 import { Movies } from "./style"
 import { useEffect } from "react"
 import axios from "axios"
@@ -27,12 +27,13 @@ export default function Home({ datas }) {
       <Movies>
         {datas.map(movie => {
           return(
-            <MovieCard 
+            <MyCard 
               key={movie.id}
               title={movie.title}
               rating={movie.vote_average}
-              poster={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
+              img={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
               pathname={movie.id}
+              subTitle={movie.release_date.split('-')[0]}
             />
           )
         })}

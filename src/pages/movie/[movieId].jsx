@@ -1,9 +1,16 @@
 import { Button, IconButton, useTheme } from "@mui/material";
 import { useEffect } from "react";
 import { apiKey } from "../../utils/apiKey"
-import { Description, Details, Poster } from "./style"
+import { Cast, Description, Details, Poster } from "./style"
 import StarSharpIcon from '@mui/icons-material/StarSharp';
 import Link from "next/link";
+
+import { Swiper, SwiperSlide } from "swiper/react";
+import { Scrollbar } from "swiper";
+import "swiper/css";
+import "swiper/css/scrollbar";
+import MyCard from "../../ui/components/MyCard";
+
 export async function getStaticProps(context) {
     const {params} = context;
     const response = await Promise.all([
@@ -49,7 +56,7 @@ export async function getStaticPaths() {
 export default function Movie({ details, credits }) {
     const theme = useTheme()
     
-    // console.log(credits)
+    console.log(credits)
 
     const formatTime = (time) => {
         const hour = Math.floor(time/60)
@@ -84,7 +91,6 @@ export default function Movie({ details, credits }) {
         return newArray
     }
 
-    console.log(handleRepeatedIds(directors))
     return(
         <>
             <Details>
@@ -127,6 +133,24 @@ export default function Movie({ details, credits }) {
                     </div>
                 </Description>
             </Details>
+            <Cast>
+                <Swiper
+                    slidesPerView={4}
+                    spaceBetween={40}
+                >
+                    {credits.cast.map(actor => {
+                        return(
+                            <SwiperSlide key={actor.key}>
+                                <MyCard 
+                                    title={actor.name}
+                                    subTitle={actor.character}
+                                    img={`https://image.tmdb.org/t/p/w500${actor.profile_path}`}
+                                />
+                            </SwiperSlide>
+                        )
+                    })}
+                </Swiper>
+            </Cast>
         </>
     )
 }
