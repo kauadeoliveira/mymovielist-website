@@ -47,7 +47,9 @@ export async function getStaticPaths() {
 }
 
 export default function Movie({ details, credits }) {
-    console.log(details)
+    const theme = useTheme()
+    
+    // console.log(credits)
 
     const formatTime = (time) => {
         const hour = Math.floor(time/60)
@@ -62,49 +64,84 @@ export default function Movie({ details, credits }) {
         }
     }
 
-    const theme = useTheme()
+
+    const directors = credits.crew.filter(crew => {
+        return crew.known_for_department === 'Directing' ? true : false
+    })
+
+    const handleRepeatedIds = (arr) => {
+        const id = []
+
+        arr.map(director => {
+            if(!id.includes(director.id)) id.push(director.id)
+        })
+
+        const newArray = []
+
+        id.map(id => {
+            newArray.push(arr.find(director => director.id === id))
+        })
+        return newArray
+    }
+
+    console.log(handleRepeatedIds(directors))
     return(
-        <Details>
-            <Poster poster={`https://image.tmdb.org/t/p/w500${details.poster_path}`}/>
-            <Description>
-                <div className="boxTitle">
-                    <h2>{details.title}</h2>
-                    <div className="about">
-                        <span className="release">{details.release_date.split('-')[0]}</span>
-                        <span className="rating">
-                            {details.vote_average.toFixed(1)}
-                            <StarSharpIcon sx={{fontSize:'.6rem', color: 'orange'}}/>
-                        </span>
-                        <span className="runtime">{formatTime(details.runtime)}</span>
+        <>
+            <Details>
+                <Poster poster={`https://image.tmdb.org/t/p/w500${details.poster_path}`}/>
+                <Description>
+                    <div className="boxTitle">
+                        <h2>{details.title}</h2>
+                        <div className="about">
+                            <span className="release">{details.release_date.split('-')[0]}</span>
+                            <span className="rating">
+                                {details.vote_average.toFixed(1)}
+                                <StarSharpIcon sx={{fontSize:'.6rem', color: 'orange'}}/>
+                            </span>
+                            <span className="runtime">{formatTime(details.runtime)}</span>
+                        </div>
                     </div>
-                </div>
-
-                <div className="overview">
-                    <h3>Overview</h3>
-                    <p>{details.overview}</p>
-                </div>
-
-                <div className="credits">
-                    <ul className="crew">
-                        <span>Crew:</span>
-                        {credits.crew.map(crew => {
-                            return(
-                                <li key={crew.id}>{crew.name}</li>
-                            )
-                        })}
-                    </ul>
-                    <ul className="genres">
-                        <span>Genres:</span>
-                        {details.genres.map(genre => {
-                            return(
-                                <li key={genre.id}>
-                                    <Link href="#">{genre.name}</Link>
-                                </li>
-                            )
-                        })}
-                    </ul>
-                </div>
-            </Description>
-        </Details>
+                    <div className="overview">
+                        <h3>Overview</h3>
+                        <p>{details.overview}</p>
+                    </div>
+                    <div className="credits" style={{color: theme.palette.text.disabled}}>
+                        <ul className="directing">
+                            <span>Direction:</span>
+                            {handleRepeatedIds(directors).map(director => {
+                                return(
+                                    <li key={director.id}>{director.name}</li>
+                                )
+                            })}
+                        </ul>
+                        <ul className="genres" >
+                            <span>Genres:</span>
+                            {details.genres.map(genre => {
+                                return(
+                                    <li key={genre.id}>
+                                        <Link href="#">{genre.name}</Link>
+                                    </li>
+                                )
+                            })}
+                        </ul>
+                    </div>
+                </Description>
+            </Details>
+        </>
     )
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

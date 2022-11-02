@@ -85,6 +85,16 @@ export const Description = styled.div`
                 margin-right: 3px;
             }
         }
+
+        .genres{
+            a{
+                color: inherit;
+                text-decoration: none;
+            }
+            a:hover{
+                text-decoration: underline;
+            }
+        }
     }
 
 `
