@@ -5,12 +5,20 @@ import { Description, Details, Poster } from "./style"
 import StarSharpIcon from '@mui/icons-material/StarSharp';
 import Link from "next/link";
 export async function getStaticProps(context) {
-    const {params} = context
-    const detailsResponse = await fetch(`https://api.themoviedb.org/3/movie/${params.movieId}?api_key=${apiKey}&language=en-US`)
-    const details = await detailsResponse.json()
+    const {params} = context;
+    const response = await Promise.all([
+        fetch(
+            `https://api.themoviedb.org/3/movie/${params.movieId}?api_key=${apiKey}&language=en-US`
+        ).then(response => response.json()),
+        fetch(
+            `https://api.themoviedb.org/3/movie/${params.movieId}/credits?api_key=${apiKey}&language=en-US`
+        ).then(response => response.json())
+    ]);
+
+    const [details, credits] = await response;
 
     return{
-        props: { details, params }
+        props: { details, credits }
     }
 }
 
@@ -38,7 +46,7 @@ export async function getStaticPaths() {
     return { paths, fallback: false }
 }
 
-export default function Movie({ details }) {
+export default function Movie({ details, credits }) {
     console.log(details)
 
     const formatTime = (time) => {
@@ -65,32 +73,36 @@ export default function Movie({ details }) {
                         <span className="release">{details.release_date.split('-')[0]}</span>
                         <span className="rating">
                             {details.vote_average.toFixed(1)}
-                            <StarSharpIcon sx={{fontSize:'.9rem', color: 'orange'}}/>
+                            <StarSharpIcon sx={{fontSize:'.6rem', color: 'orange'}}/>
                         </span>
                         <span className="runtime">{formatTime(details.runtime)}</span>
                     </div>
                 </div>
-
-                <span className="genres">
-                    {details.genres.map(genre =>{
-                        return(
-                            <Link key={genre.id} href="#" style={{color: theme.palette.text.disabled}}>
-                                {genre.name}
-                            </Link>
-                        )
-                    })}
-                </span>
 
                 <div className="overview">
                     <h3>Overview</h3>
                     <p>{details.overview}</p>
                 </div>
 
-                <div className="boxUserActions">
-
-                    <Button>
-                        Watch Trailer
-                    </Button>
+                <div className="credits">
+                    <ul className="crew">
+                        <span>Crew:</span>
+                        {credits.crew.map(crew => {
+                            return(
+                                <li key={crew.id}>{crew.name}</li>
+                            )
+                        })}
+                    </ul>
+                    <ul className="genres">
+                        <span>Genres:</span>
+                        {details.genres.map(genre => {
+                            return(
+                                <li key={genre.id}>
+                                    <Link href="#">{genre.name}</Link>
+                                </li>
+                            )
+                        })}
+                    </ul>
                 </div>
             </Description>
         </Details>
