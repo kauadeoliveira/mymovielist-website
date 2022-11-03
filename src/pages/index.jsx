@@ -15,25 +15,35 @@ import Link from "next/link"
 
 
 export default function Home({ datas }) {
-  console.log(datas)
+  
+  const bannerMovie = datas[0];
+  const movies = datas.slice(1)
+
+  console.log(bannerMovie)
   return(
     <>
     <Head>
       <title>Home</title>
     </Head>
     <Container>
-      <MainBanner />
+      <MainBanner 
+       img={bannerMovie.backdrop_path}
+       pathname={bannerMovie.id}
+       description={{
+        title: bannerMovie.original_title,
+        overview: bannerMovie.overview
+       }}
+      />
       <h3 style={{margin: 0}}>All Movies</h3>
       <Movies>
-        {datas.map(movie => {
+        {movies.map(movie => {
           return(
             <MyCard 
               key={movie.id}
-              title={movie.title}
               rating={movie.vote_average}
-              img={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
+              img={movie.poster_path}
               pathname={movie.id}
-              subTitle={movie.release_date.split('-')[0]}
+
             />
           )
         })}
@@ -55,7 +65,7 @@ export async function getServerSideProps() {
   ]);
 
 
-  const [popularMovies, topMovies] = await response;
+  const [popularMovies, topMovies] = response;
 
   const datas = popularMovies.results.concat(topMovies.results)
 

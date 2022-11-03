@@ -4,5 +4,5 @@ export const Movies = styled.div`
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
-    row-gap: 20px;
+    row-gap: 5px;
 `

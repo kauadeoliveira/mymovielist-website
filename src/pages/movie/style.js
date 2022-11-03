@@ -57,7 +57,7 @@ export const Description = styled.div`
             margin: 0;
         }
         h3{
-            font-size: .9rem;
+            font-size: .85rem;
         }
         p{
             font-size: .7rem;

@@ -56,7 +56,7 @@ export async function getStaticPaths() {
 export default function Movie({ details, credits }) {
     const theme = useTheme()
     
-    console.log(credits)
+    // console.log(credits)
 
     const formatTime = (time) => {
         const hour = Math.floor(time/60)
@@ -142,9 +142,11 @@ export default function Movie({ details, credits }) {
                         return(
                             <SwiperSlide key={actor.key}>
                                 <MyCard 
-                                    title={actor.name}
-                                    subTitle={actor.character}
                                     img={`https://image.tmdb.org/t/p/w500${actor.profile_path}`}
+                                    description={{
+                                        title: actor.name,
+                                        subTitle: actor.character
+                                    }}
                                 />
                             </SwiperSlide>
                         )

@@ -1,22 +1,26 @@
-import { useTheme } from "@mui/material";
+import { Button, useTheme } from "@mui/material";
 import Link from "next/link";
-import { CardDescription, CardImage, CardWrapper } from "./style"
+import { CardRating, CardWrapper, CardContent, CardImage, CardDescription, } from "./style";
 
-export default function MyCard({ title, img, rating, pathname, subTitle}) {
+
+export default function MyCard({ img, rating, pathname, description }) {
     const { palette } = useTheme()
     return(
-    <Link href={`/movie/${pathname}`} style={{textDecoration: 'none'}}>
-        <CardWrapper>
-            <CardImage style={{backgroundImage: `url(${img})`}}/>
-            <CardDescription>
-                <p style={{color: palette.text.primary}}>
-                    {title}
-                </p>
-                <p style={{color: palette.text.disabled, display: `${subTitle ? 'block' : 'none'}`}}>
-                    {subTitle}
-                </p>
-            </CardDescription>
+    <>
+        <CardWrapper href={`/movie/${pathname}`}>
+            <CardRating>
+                {rating}
+            </CardRating>
+            <CardContent description={description}>
+                <CardImage img={`https://image.tmdb.org/t/p/w500${img}`} /> 
+                <CardDescription description={description}>
+                    <span>{description ? description.title : undefined}</span>
+                    <span>{description ? description.subTitle : undefined}</span>
+                </CardDescription>
+            </CardContent>
         </CardWrapper>
-    </Link>
+    </>
     )
 }
+
+
