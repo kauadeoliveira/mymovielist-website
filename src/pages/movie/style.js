@@ -1,107 +1,101 @@
+import { Paper } from "@mui/material";
 import styled from "styled-components";
 
 export const Details = styled.section`
-    display: flex;
-    gap: 8px;
     width: 100%;
     padding: 10px;
-    justify-content: space-between;
-
-
+    display: grid;
+    grid-template-columns: 150px / 1fr;
+    gap: 5px;
 `
 
-
-export const Poster = styled.div`
-    height: 250px;
-    width: 160px;
-    background-color: black;
-    background-image: url(${({ poster }) => poster});
+export  const Poster = styled(Paper)`
+    height: 225px;
+    width: 150px;
+    grid-column: 1;
+    background-image: url(${({img}) => img});
     background-size: cover;
     background-repeat: no-repeat;
 `
 
-
 export const Description = styled.div`
-    width: 70%;
-    height: 240px;
+    grid-column: 2;
+    width: 100%;
+    height: 100%;
+`
+
+export const TitleDescription = styled.div`
     display: flex;
     flex-direction: column;
-    justify-content: center;
-    gap: 10px;
+    .movie-title{
+        display: flex;
+        gap: 5px;
+        margin: 0;
+        font-size: 1rem; 
+        flex-wrap: wrap;
+    }
 
-    .boxTitle{
-        h2{
-            font-size: 1rem;
-            margin: 0;
+    .advanced-details{
+        display: flex;
+        align-items: center;
+        font-size: .5rem;
+        span:not(:last-child)::after{
+            content: '•';
+            margin: 0 3px;
         }
-        .about{
+
+        .rating{
             display: flex;
-            flex-wrap: wrap;
             align-items: center;
-            font-size: .6rem;
-            span:not(:first-child)::before{
-                content: '•';
-                margin: 0 3px;
-            }
-
-            .rating{
-                display: inline-flex;
-                height: 20px;
-                line-height: 20px;
-                align-items: center;
-            }
-        }    
-    }
-    .overview{
-        h3, p{
-            margin: 0;
-        }
-        h3{
-            font-size: .85rem;
-        }
-        p{
-            font-size: .7rem;
-        }
-    }
-
-    .credits{
-        span{
-            font-weight: bold;
-            margin-right: 3px;
-        }
-        ul{
-            width: 100%;
-            padding: 0;
-            margin: 0;
-            list-style: none;
-            font-size: .6rem;
-
-            li{
-                display: inline-block;
-            }
-
-            li:not(:first-of-type)::before{
-                content: ',';
-                margin-right: 3px;
-            }
         }
 
         .genres{
+            display: flex;
+            a:not(:last-child)::after{
+                margin-right: 3px;
+                content: ',';
+            }
             a{
                 color: inherit;
                 text-decoration: none;
             }
             a:hover{
-                text-decoration: underline;
+                text-decoration: underline
             }
         }
     }
 `
-export const Cast = styled.section`
-    width: 100%;
 
-    .swiper{
-        height: 100%;
-        padding: 10px;
+export const OverviewDescription = styled.div`
+    p{
+        font-size: .65rem;
+    }
+    span{
+        margin-right: 5px;
+        font-weight: bold;
+    }
+    ul.directors{
+        display: flex;
+        flex-wrap: wrap;
+        list-style: none;
+        margin: 0;
+        padding: 0;
+
+        li:not(:last-child)::after{
+            content: ',';
+            margin-right: 3px;
+        }
+    }
+    
+    span, ul{
+        font-size: .6rem;
+    }
+`
+
+export const Cast = styled.div`
+    width: 100%;
+    padding: 10px;
+    h2{
+        margin: 0;
     }
 `

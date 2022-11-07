@@ -17,6 +17,7 @@ import { store } from "../store/store"
 // React imports
 import {  useMemo, useState } from 'react'
 import HeaderAppBar from '../ui/components/HeaderAppBar'
+import MyAppBar from '../ui/components/MyAppBar/MyAppBar'
 
 
 // My Component
@@ -59,7 +60,7 @@ export default function MyApp({ Component, pageProps }) {
     <>
       <Provider store={store}>
         <ThemeProvider theme={theme}>
-          <HeaderAppBar />
+          <MyAppBar />
           <Component {...pageProps} />
           <CssBaseline />
         </ThemeProvider>

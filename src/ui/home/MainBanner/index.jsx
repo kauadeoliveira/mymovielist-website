@@ -1,7 +1,6 @@
 import { BannerButton, BannerContent, BannerWrapper } from "./style"
 
 export default function MainBanner({ img, pathname, description }) {
-    const generes = ['Heroes', 'Action', 'Adventure']
     return(
         <BannerWrapper img={`https://image.tmdb.org/t/p/w500${img}`}>
             <BannerContent>

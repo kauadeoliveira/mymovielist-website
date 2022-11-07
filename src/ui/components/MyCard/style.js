@@ -30,6 +30,7 @@ export  const CardContent = styled(Paper)`
     height: ${({description}) => description ? '220px' : '172.5px'};
     display: ${({description}) => description ? 'grid' : 'block'};
     grid-template-rows: 150px 70px;
+    border-radius: 10px;
 `
 
 export const CardImage = styled.div`
@@ -40,6 +41,7 @@ export const CardImage = styled.div`
     background-image: url(${({img}) => img});
     background-size: cover;
     background-repeat: no-repeat;
+    border-radius: ${({description}) => description ? '10px 10px 0px 0px' : '0'};
 `
 
 export const CardDescription = styled.div`
@@ -53,6 +55,6 @@ export const CardDescription = styled.div`
         font-size: .7rem;
     }
     span:nth-child(2){
-        font-size: .6rem;
+        font-size: .5rem;
     }
 `

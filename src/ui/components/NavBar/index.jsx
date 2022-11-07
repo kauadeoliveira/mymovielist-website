@@ -11,9 +11,10 @@ import {
     useTheme
 } from "@mui/material";
 
-import WhatshotIcon from '@mui/icons-material/Whatshot';
 import HomeSharpIcon from '@mui/icons-material/HomeSharp';
-import FormatListBulletedSharpIcon from '@mui/icons-material/FormatListBulletedSharp';
+import LocalFireDepartmentSharpIcon from '@mui/icons-material/LocalFireDepartmentSharp';
+import LiveTvSharpIcon from '@mui/icons-material/LiveTvSharp';
+import StarsSharpIcon from '@mui/icons-material/StarsSharp';
 
 // React Imports
 import { useState } from "react";
@@ -41,8 +42,14 @@ export default function NavBar() {
 
 // Handle active page
 
-    const [pathname, setPathname] = useState('')
-    useEffect(() => setPathname(window.location.pathname), [])
+    // const [pathname, setPathname] = useState('')
+    // useEffect(() => {
+    //     setPathname(window.location.pathname)
+    // }, [])
+    
+    // const {pathname} = globalThis.window.location
+    const pathname = '/'
+    console.log(pathname)
 
     return(
         <Box component="nav" sx={{backgroundColor: 'black'}}>
@@ -58,45 +65,70 @@ export default function NavBar() {
                         <Logo color={theme.palette.text.disabled}>MyMovieList</Logo>
                     </Toolbar>
                     <List>
-                    <ListItem disablePadding>
-                        <MyLink
-                         href="/"
-                         className={pathname === '/' ? 'active' : undefined}
-                         > 
-                            <ListItemButton>
-                                <ListItemIcon>
-                                    <HomeSharpIcon />
-                                </ListItemIcon>
-                                <ListItemText>
-                                    Home
-                                </ListItemText>
-                            </ListItemButton>
-                        </MyLink>
-                    </ListItem>
-                        <MyLink 
-                         href="/trending"
-                         className={pathname === "/trending" ? 'active' : undefined}>
-                            <ListItem disablePadding>
+                        <ListItem disablePadding>
+                            <MyLink
+                            href="/"
+                            className={pathname === '/' ? 'active' : undefined}
+                            > 
                                 <ListItemButton>
                                     <ListItemIcon>
-                                        <WhatshotIcon />
+                                        <HomeSharpIcon />
                                     </ListItemIcon>
                                     <ListItemText>
-                                        Trending
+                                        Home
                                     </ListItemText>
                                 </ListItemButton>
-                            </ListItem>
-                        </MyLink>
-                        <ListItem disablePadding>
-                            <ListItemButton>
-                                <ListItemIcon>
-                                    <FormatListBulletedSharpIcon />
-                                </ListItemIcon>
-                                <ListItemText>
-                                    Categories
-                                </ListItemText>
-                            </ListItemButton>
+                            </MyLink>
                         </ListItem>
+
+                        <ListItem disablePadding>
+                            <MyLink
+                            href="/now-playing"
+                            className={pathname === '/now-playing' ? 'active' : undefined}
+                            > 
+                                <ListItemButton>
+                                    <ListItemIcon>
+                                        <LiveTvSharpIcon />
+                                    </ListItemIcon>
+                                    <ListItemText>
+                                        Now Playing
+                                    </ListItemText>
+                                </ListItemButton>
+                            </MyLink>
+                        </ListItem>
+
+                        <ListItem disablePadding>
+                            <MyLink
+                            href="/popular"
+                            className={pathname === '/popular' ? 'active' : undefined}
+                            > 
+                                <ListItemButton>
+                                    <ListItemIcon>
+                                        <LocalFireDepartmentSharpIcon />
+                                    </ListItemIcon>
+                                    <ListItemText>
+                                        Popular
+                                    </ListItemText>
+                                </ListItemButton>
+                            </MyLink>
+                        </ListItem>
+
+                        <ListItem disablePadding>
+                            <MyLink
+                            href="/top-rated"
+                            className={pathname === '/top-rated' ? 'active' : undefined}
+                            > 
+                                <ListItemButton>
+                                    <ListItemIcon>
+                                        <StarsSharpIcon />
+                                    </ListItemIcon>
+                                    <ListItemText>
+                                        Top Rated
+                                    </ListItemText>
+                                </ListItemButton>
+                            </MyLink>
+                        </ListItem>
+
                     </List>
                 </div>
             </Drawer>
