@@ -3,11 +3,7 @@ import { InputBase, useTheme } from "@mui/material";
 import SearchSharpIcon from '@mui/icons-material/SearchSharp';
 
 // Components styled imports
-import {
-    SearchIconWrapper,
-    SearchInput,
-    SearchWrapper
-} from "./styles";
+import { SearchIconWrapper, SearchInput, SearchWrapper } from "./styles"
 
 
 export default function Search() {

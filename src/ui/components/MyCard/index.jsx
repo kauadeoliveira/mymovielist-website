@@ -5,6 +5,8 @@ import { CardRating, CardWrapper, CardContent, CardImage, CardDescription, } fro
 
 export default function MyCard({ img, rating, pathname, description }) {
     const { palette } = useTheme()
+    const theme = useTheme()
+    console.log(theme)
     return(
     <>
         <CardWrapper href={`/movie/${pathname}`}>
