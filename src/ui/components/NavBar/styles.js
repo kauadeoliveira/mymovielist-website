@@ -1,4 +1,4 @@
-import { Backdrop } from "@mui/material";
+import { Backdrop, Collapse } from "@mui/material";
 import styled from "styled-components";
 
 
@@ -10,7 +10,7 @@ export const SearchWrapper = styled.div`
     border-radius: 4px;
     padding: 4px;
     width: 90%;
-    margin: 10px auto;
+    margin: 50px auto 10px auto;
     `
 
 export const SearchIconWrapper = styled.div`
@@ -30,3 +30,4 @@ export const SearchInput = styled.input`
     border-radius: 0px 4px 4px 0;
     background: none;
 `
+

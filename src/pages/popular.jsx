@@ -1,6 +1,8 @@
+import { useState } from "react"
+import { useSelector } from "react-redux"
 import MyCard from "../ui/components/MyCard"
 import { apiKey } from "../utils/apiKey"
-import { Movies } from "./style"
+import { Movies, MyContainer, TitlePage } from "./style"
 
 export async function getServerSideProps() {
     const response = await fetch(`https://api.themoviedb.org/3/movie/popular?api_key=${apiKey}&language=en-US&page=1`)
@@ -10,20 +12,22 @@ export async function getServerSideProps() {
 }
 
 export default function Popular({ data }) {
+    const { openNavBar } = useSelector(store => store.navBar)
     return(
-        <Movies>
-            <h3 style={{margin: 0}}>Now Playing Movies</h3>
-
-            {data.map(movie => {
-                return(
-                <MyCard 
-                    key={movie.id}
-                    rating={movie.vote_average}
-                    img={movie.poster_path}
-                    pathname={movie.id}
-                />
-                )
-            })}
-        </Movies>
+        <MyContainer noDisplay={openNavBar}>
+            <TitlePage>Popular Movies</TitlePage>
+            <Movies>
+                {data.map(movie => {
+                    return(
+                        <MyCard 
+                         key={movie.id}
+                         rating={movie.vote_average}
+                         img={movie.poster_path}
+                         pathname={movie.id}
+                        />
+                    )
+                })}
+            </Movies>
+        </MyContainer>
     )
 }

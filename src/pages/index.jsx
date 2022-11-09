@@ -6,7 +6,7 @@ import HeaderAppBar from "../ui/components/HeaderAppBar"
 import MainBanner from "../ui/home/MainBanner"
 import NavBar from "../ui/components/NavBar"
 import MyCard from "../ui/components/MyCard"
-import { Movies } from "./style"
+import { Movies, MyContainer, TitlePage } from "./style"
 import { useEffect } from "react"
 import axios from "axios"
 import { apiKey } from "../utils/apiKey"
@@ -37,14 +37,14 @@ return { props: { datas } }
 export default function Home({ datas }) {
   const bannerMovie = datas[0];
   const movies = datas.slice(1)
+  const { openNavBar } = useSelector(store => store.navBar)
   return(
     <>
     <Head>
       <title>Home</title>
     </Head>
 
-
-    <Container>
+    <MyContainer noDisplay={openNavBar}>
       <MainBanner 
        img={bannerMovie.backdrop_path}
        pathname={bannerMovie.id}
@@ -54,10 +54,8 @@ export default function Home({ datas }) {
        }}
       />
 
-
+      <TitlePage>All Movies</TitlePage>
       <Movies>
-        <h3 style={{margin: 0}}>All Movies</h3>
-
           {movies.map(movie => {
             return(
               <MyCard 
@@ -69,7 +67,7 @@ export default function Home({ datas }) {
             )
           })}
       </Movies>
-    </Container>
+    </MyContainer>
     </>
   )
 }

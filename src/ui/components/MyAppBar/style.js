@@ -2,10 +2,11 @@ import styled from "styled-components";
 
 export const AppBarWrapper = styled.div`
     display: flex;
-    z-index: 1000;
-    position: sticky;
-    top: 0;
     align-items: center;
+    position: fixed;
+    z-index: 1000;
+    height: 40px;
+    top: 0;
     justify-content: center;
     width: 100%;
     padding: 5px 10px;

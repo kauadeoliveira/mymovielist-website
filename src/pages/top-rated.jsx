@@ -1,8 +1,9 @@
 import { useState } from "react";
+import { useSelector } from "react-redux";
 import MyAppBar from "../ui/components/MyAppBar";
 import MyCard from "../ui/components/MyCard";
 import { apiKey } from "../utils/apiKey"
-import { Movies, SelectGenre } from "./style";
+import { Movies, MyContainer, TitlePage } from "./style";
 
 export async function getServerSideProps() {
     const response = await fetch(`https://api.themoviedb.org/3/movie/top_rated?api_key=${apiKey}&language=en-US&page=1`);
@@ -13,11 +14,10 @@ export async function getServerSideProps() {
 
 
 export default function TopRated({ data }) {
-    console.log(data)
-    const [title, setTitle] = useState('Top Rated')
+    const { openNavBar } = useSelector(store => store.navBar)
     return(
-        <>
-            <MyAppBar />
+        <MyContainer noDisplay={openNavBar}>
+            <TitlePage>Top Rated Movies</TitlePage>
             <Movies>
                 {data.map(movie => {
                     return(
@@ -29,7 +29,7 @@ export default function TopRated({ data }) {
                     />
                     )
                 })}
-                </Movies>
-        </>
+            </Movies>
+        </MyContainer>
     )
 }

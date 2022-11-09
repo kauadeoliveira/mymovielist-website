@@ -1,3 +1,4 @@
+import { Container } from "@mui/system";
 import styled from "styled-components";
 
 export const Movies = styled.div`
@@ -12,9 +13,12 @@ export const Movies = styled.div`
         top: 10px;
     }
 `
+export const MyContainer = styled(Container)`
+    display: ${({ noDisplay }) => noDisplay ? 'none' : 'block'};
+    margin-top: 50px;
+`
 
-export const SelectGenre = styled.div`
-    width: 100%;
-    background-color: red;
-    display: flex;
+export const TitlePage = styled.h1`
+    margin: 0;
+    font-size: 1rem;
 `

@@ -94,8 +94,14 @@ export const OverviewDescription = styled.div`
 
 export const Cast = styled.div`
     width: 100%;
-    padding: 10px;
+    height: 30vh;
     h2{
         margin: 0;
+        padding: 0 10px;
+        font-size: 1rem;
+    }
+    
+    .swiper{
+        padding: 10px;
     }
 `

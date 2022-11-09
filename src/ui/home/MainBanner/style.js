@@ -10,7 +10,6 @@ export const BannerWrapper = styled(Paper)`
     background-image: url(${({img}) => img});
     background-repeat: no-repeat;
     background-position: left top;
-    margin-top: 10px;
     margin-bottom: 20px;
 `
 

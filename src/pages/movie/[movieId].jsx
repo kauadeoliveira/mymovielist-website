@@ -28,6 +28,8 @@ import "swiper/css/scrollbar";
 
 // Other Imports
 import { apiKey } from "../../utils/apiKey"
+import { useSelector } from "react-redux";
+import { MyContainer } from "../style";
 
 export async function getStaticProps(context) {
     const {params} = context;
@@ -72,6 +74,7 @@ export async function getStaticPaths() {
 }
 
 export default function Movie({ details, credits }) {
+    const { openNavBar } = useSelector(store => store.navBar)
     const {palette} = useTheme()
     const {
         genres,
@@ -122,67 +125,66 @@ export default function Movie({ details, credits }) {
             return arrGenres
         }
     }
-    console.log(credits)
     return(
-        <>
-        <Details>
-            <Poster img={`https://image.tmdb.org/t/p/w500${poster_path}`}/>
-            <Description>
-                <TitleDescription>
-                    <h1 className="movie-title">
-                        <span className="title" style={{color: palette.text.primary}}>{original_title}</span>
-                        <span className="date" style={{color: palette.text.disabled}}>({release_date.split('-')[0]})</span>
-                    </h1>
-                    <div className="advanced-details" style={{color: palette.text.primary}}>
-                        <span className="rating" >
-                            {vote_average.toFixed(1)}
-                            <StarSharpIcon sx={{fontSize: '.5rem', color: 'orange'}}/>
-                        </span>
-                        <span className="genres" >
-                            {handleManyGenres(genres).map(genre => {
+        <MyContainer noDisplay={openNavBar}>
+            <Details>
+                <Poster img={`https://image.tmdb.org/t/p/w500${poster_path}`}/>
+                <Description>
+                    <TitleDescription>
+                        <h1 className="movie-title">
+                            <span className="title" style={{color: palette.text.primary}}>{original_title}</span>
+                            <span className="date" style={{color: palette.text.disabled}}>({release_date.split('-')[0]})</span>
+                        </h1>
+                        <div className="advanced-details" style={{color: palette.text.primary}}>
+                            <span className="rating" >
+                                {vote_average.toFixed(1)}
+                                <StarSharpIcon sx={{fontSize: '.5rem', color: 'orange'}}/>
+                            </span>
+                            <span className="genres" >
+                                {handleManyGenres(genres).map(genre => {
+                                    return(
+                                        <Link href="#" key={genre.id}>{genre.name}</Link>
+                                    )
+                                })}
+                            </span>
+                            <span className="runtime">{formatTime(runtime)}</span>
+                        </div>
+                    </TitleDescription>
+                    <OverviewDescription>
+                        <p>{overview}</p>
+                        <ul className="directors" style={{color: palette.text.disabled}}>
+                            <span>Direction:</span>
+                            {handleRepeatedIds(directors).map(director => {
                                 return(
-                                    <Link href="#" key={genre.id}>{genre.name}</Link>
+                                    <li key={director.id}>{director.name}</li>
                                 )
                             })}
-                        </span>
-                        <span className="runtime">{formatTime(runtime)}</span>
-                    </div>
-                </TitleDescription>
-                <OverviewDescription>
-                    <p>{overview}</p>
-                    <ul className="directors" style={{color: palette.text.disabled}}>
-                        <span>Direction:</span>
-                        {handleRepeatedIds(directors).map(director => {
-                            return(
-                                <li key={director.id}>{director.name}</li>
-                            )
-                        })}
-                    </ul>
-                </OverviewDescription>
-            </Description>
-        </Details>
-        <Cast>
-            <h2>Cast</h2>
-            <Swiper
-                slidesPerView={4}
-                spaceBetween={30}
-            >
-                {credits.cast.map(actor => {
-                    return(
-                    <SwiperSlide key={actor.id}>
-                        <MyCard
-                            img={actor.profile_path}
-                            description={{
-                                title: actor.name,
-                                subTitle: actor.character
-                            }}
-                        />
-                    </SwiperSlide>
-                    )
-                })}
-            </Swiper>
-        </Cast>
-        </>
+                        </ul>
+                    </OverviewDescription>
+                </Description>
+            </Details>
+            <Cast>
+                <h2>Cast</h2>
+                <Swiper
+                    slidesPerView={4}
+                    spaceBetween={30}
+                    >
+                    {credits.cast.map(actor => {
+                        return(
+                        <SwiperSlide key={actor.id}>
+                            <MyCard
+                                img={actor.profile_path}
+                                description={{
+                                    title: actor.name,
+                                    subTitle: actor.character
+                                }}
+                            />
+                        </SwiperSlide>
+                        )
+                    })}
+                </Swiper>
+            </Cast>
+        </MyContainer>
     )
 }
 
