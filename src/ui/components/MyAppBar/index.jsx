@@ -38,7 +38,7 @@ export default function MyAppBar() {
                     </li>
                     <li>
                         <Link href="/" className="logo">
-                            <Image src="/mml-logo.png" width={52} height={16}/>
+                            <Image src="/mml-logo.png" width={52} height={16} alt="My Movie List Logo"/>
                         </Link>
                     </li>
                     <li>

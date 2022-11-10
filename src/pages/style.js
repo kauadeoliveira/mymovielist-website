@@ -14,7 +14,7 @@ export const Movies = styled.div`
     }
 `
 export const MyContainer = styled(Container)`
-    display: ${({ noDisplay }) => noDisplay ? 'none' : 'block'};
+    display: ${({ nodisplay }) => nodisplay ? 'none' : 'block'};
     margin-top: 50px;
 `
 

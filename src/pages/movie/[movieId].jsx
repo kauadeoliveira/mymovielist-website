@@ -42,7 +42,7 @@ export async function getStaticProps(context) {
         ).then(response => response.json())
     ]);
 
-    const [details, credits] = await response;
+    const [details, credits] = response;
 
     return{
         props: { details, credits }
@@ -59,7 +59,7 @@ export async function getStaticPaths() {
           ).then(response => response.json()),
     ]);
 
-    const [popularMovies, topMovies] = await response;
+    const [popularMovies, topMovies] = response;
 
     const allMovies = popularMovies.results.concat(topMovies.results);
     const paths = allMovies.map(movie => {

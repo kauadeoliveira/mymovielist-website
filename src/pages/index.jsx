@@ -19,18 +19,18 @@ export async function getServerSideProps() {
   const response = await Promise.all([
   fetch(
     `https://api.themoviedb.org/3/movie/popular?api_key=${apiKey}&language=en-US&page=1`
-    ).then(response => response.json()),
+  ).then(response => response.json()),
   fetch(
     `https://api.themoviedb.org/3/movie/top_rated?api_key=${apiKey}&language=en-US&page=1`
-    ).then(response => response.json()),
-]);
+  ).then(response => response.json()),
+  ]);
 
 
-const [popularMovies, topMovies] = response;
+  const [popularMovies, topMovies] = response;
 
-const datas = popularMovies.results.concat(topMovies.results)
+  const datas = popularMovies.results.concat(topMovies.results)
 
-return { props: { datas } }
+  return { props: { datas } }
 }
 
 
@@ -44,7 +44,7 @@ export default function Home({ datas }) {
       <title>Home</title>
     </Head>
 
-    <MyContainer noDisplay={openNavBar}>
+    <MyContainer nodisplay={openNavBar}>
       <MainBanner 
        img={bannerMovie.backdrop_path}
        pathname={bannerMovie.id}

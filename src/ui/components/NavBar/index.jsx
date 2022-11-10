@@ -10,32 +10,51 @@ import WhatshotSharpIcon from '@mui/icons-material/WhatshotSharp';
 import ExpandMoreSharpIcon from '@mui/icons-material/ExpandMoreSharp';
 import ListSharpIcon from '@mui/icons-material/ListSharp';
 import { MyBackdrop, MyListItemButton } from "./styles";
+import { apiKey } from "../../../utils/apiKey";
+import { useEffect } from "react";
+import { allCategories } from "../../../utils/allCategories";
 
 
 export default function NavBar() {
+    const [movieIds, setMovieIds] = useState();
+    const [categories, setCategories] = useState();
+
+    async function getData(){
+        const responseAllMovies = await Promise.all([
+            fetch(
+              `https://api.themoviedb.org/3/movie/popular?api_key=${apiKey}&language=en-US&page=1`
+              ).then(response => response.json()),
+            fetch(
+              `https://api.themoviedb.org/3/movie/top_rated?api_key=${apiKey}&language=en-US&page=1`
+              ).then(response => response.json()),
+        ]).then(response => {
+            const allMovies = response[0].results.concat(response[1].results);
+            setMovieIds(allMovies.map(movie => movie.id))
+        });
+
+        const urlAllMovies = movieIds.map(id => {
+            return `https://api.themoviedb.org/3/movie/${id}?api_key=${apiKey}&language=en-US`
+        })
+
+        const responseDetails = await Promise.all(urlAllMovies.map(async url => {
+            const response = await fetch(url);
+            return await response.json();
+        })).then(response => {
+
+            setCategories(allCategories(response))
+        })
+    
+    }
+
+    useEffect(() => {
+        getData()
+        console.log(categories)
+    }, [])
+
+
     const openNav = useSelector(store => store.navBar.openNavBar)
     const [openCategories, setOpenCategories] = useState(false)
     const theme = useTheme()
-
-    const genres = [
-        'Action',
-        'Adventure',
-        'Animation',
-        'Comedy',
-        'Crime',
-        'Documentary',
-        'Drama',
-        'Family',
-        'Fantasy',
-        'History',
-        'Horror',
-        'Music',
-        'Romance',
-        'Science Fiction',
-        'Thriller',
-        'War'
-    ]
-
 
     const handleClick = () => setOpenCategories(!openCategories)
 
@@ -64,11 +83,11 @@ export default function NavBar() {
                         </MyListItemButton>
                         <Collapse in={openCategories}>
                             <List>
-                                {genres.map(genre => {
+                                {categories.map(category => {
                                     return(
-                                        <ListItem key={genre} sx={{fontSize: '.8rem'}}>
-                                            <ListItemButton href={`/category/${genre}`}>
-                                                {genre}
+                                        <ListItem key={category} sx={{fontSize: '.8rem'}}>
+                                            <ListItemButton href={`/category/${category}`}>
+                                                {category}
                                             </ListItemButton>
                                         </ListItem>
                                     )
