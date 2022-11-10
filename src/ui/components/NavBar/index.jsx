@@ -4,9 +4,12 @@ import { useDispatch, useSelector } from "react-redux";
 import { navBarSlice } from "../../../store/slices/navBarSlice"
 import { store } from "../../../store/store"
 import Search from "./Search";
-
+import StarsSharpIcon from '@mui/icons-material/StarsSharp';
+import OndemandVideoSharpIcon from '@mui/icons-material/OndemandVideoSharp';
+import WhatshotSharpIcon from '@mui/icons-material/WhatshotSharp';
 import ExpandMoreSharpIcon from '@mui/icons-material/ExpandMoreSharp';
-import { MyBackdrop } from "./styles";
+import ListSharpIcon from '@mui/icons-material/ListSharp';
+import { MyBackdrop, MyListItemButton } from "./styles";
 
 
 export default function NavBar() {
@@ -42,18 +45,31 @@ export default function NavBar() {
                 <Box sx={{backgroundColor: theme.palette.background.default, height: '100vh', padding: '10px 0'}}>
                     <Search />
                     <List>
-                        <ListItemButton href="/top-rated">Top Rated</ListItemButton>
-                        <ListItemButton href="/popular">Popular</ListItemButton>
-                        <ListItemButton href="/now-playing">Now Playing</ListItemButton>
-                        <ListItemButton onClick={handleClick}>
-                            Categories <ExpandMoreSharpIcon />
-                        </ListItemButton>
+                        <MyListItemButton href="/top-rated">
+                            <span><OndemandVideoSharpIcon fontSize="inherit" color="primary"/></span>
+                            <span>Top Rated</span>
+                        </MyListItemButton>
+                        <MyListItemButton href="/popular">
+                            <span><WhatshotSharpIcon fontSize="inherit" color="primary"/></span>
+                            <span>Popular</span>
+                        </MyListItemButton>
+                        <MyListItemButton href="/now-playing">
+                            <span><StarsSharpIcon fontSize="inherit" color="primary"/></span>
+                            <span>Now Playing</span>
+                        </MyListItemButton>
+                        <MyListItemButton onClick={handleClick}>
+                            <span><ListSharpIcon fontSize="inherit" color="primary"/></span>
+                            <span>Categories</span>
+                            <span><ExpandMoreSharpIcon fontSize="inherit"/></span>
+                        </MyListItemButton>
                         <Collapse in={openCategories}>
                             <List>
                                 {genres.map(genre => {
                                     return(
-                                        <ListItem key={genre}>
-                                            <ListItemButton href={`/category/${genre}`}>{genre}</ListItemButton>
+                                        <ListItem key={genre} sx={{fontSize: '.8rem'}}>
+                                            <ListItemButton href={`/category/${genre}`}>
+                                                {genre}
+                                            </ListItemButton>
                                         </ListItem>
                                     )
                                 })}

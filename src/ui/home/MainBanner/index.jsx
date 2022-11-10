@@ -5,7 +5,7 @@ export default function MainBanner({ img, pathname, description }) {
         <BannerWrapper img={`https://image.tmdb.org/t/p/w500${img}`}>
             <BannerContent>
                 <h2>{description.title}</h2>
-                <BannerButton variant="contained" href={`/movie/${pathname}`}>See about</BannerButton>
+                <BannerButton variant="contained" href={`/movie/${pathname}`} color="primary">See about</BannerButton>
             </BannerContent>
         </BannerWrapper>
     )

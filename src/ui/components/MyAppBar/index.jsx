@@ -1,4 +1,4 @@
-import { AppBarWrapper } from "./style";
+import { AppBarWrapper, Logo } from "./style";
 
 import CloseSharpIcon from '@mui/icons-material/CloseSharp';
 import MenuSharpIcon from '@mui/icons-material/MenuSharp';
@@ -12,6 +12,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { navBarSlice } from "../../../store/slices/navBarSlice"
 import { themeSlice } from "../../../store/slices/themeSlice"
 import NavBar from "../NavBar";
+import Image from "next/image";
 
 export default function MyAppBar() {
     const theme = useTheme();
@@ -36,7 +37,9 @@ export default function MyAppBar() {
                         </IconButton>
                     </li>
                     <li>
-                        <Link href="/">Logo</Link>
+                        <Link href="/" className="logo">
+                            <Image src="/mml-logo.png" width={52} height={16}/>
+                        </Link>
                     </li>
                     <li>
                         <IconButton size="small" onClick={handleChangeTheme}> 

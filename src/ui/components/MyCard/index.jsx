@@ -10,7 +10,7 @@ export default function MyCard({ img, rating, pathname, description }) {
     return(
     <>
         <CardWrapper href={`/movie/${pathname}`}>
-            <CardRating>
+            <CardRating style={{backgroundColor: palette.primary.main}}>
                 {rating}
             </CardRating>
             <CardContent description={description}>

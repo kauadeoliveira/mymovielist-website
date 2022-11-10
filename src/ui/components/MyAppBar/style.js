@@ -19,6 +19,9 @@ export const AppBarWrapper = styled.div`
         text-decoration: none;
     }
     
+    a.logo{
+        height: 34px;
+    }
     ul{
         padding: 0;
         gap: 30px;
@@ -40,12 +43,23 @@ export const AppBarWrapper = styled.div`
             display: flex;
             width: 100%;
             justify-content: space-between;
+            align-items: center;
             padding: 0;
             margin: 0;
+
+            img{
+                display: block;
+            }
         }
 
         ul.items-lg{
             display: none
         }
     }
+`
+
+export const Logo = styled.div`
+    background-color: red;
+    height: 25px;
+    width: 82px;
 `

@@ -1,4 +1,4 @@
-import { Backdrop, Collapse } from "@mui/material";
+import { Backdrop, Collapse, ListItemButton } from "@mui/material";
 import styled from "styled-components";
 
 
@@ -30,4 +30,14 @@ export const SearchInput = styled.input`
     border-radius: 0px 4px 4px 0;
     background: none;
 `
-
+export const MyListItemButton = styled(ListItemButton)`
+    gap: 5px;
+    span{
+        display: flex;
+        align-items: center;
+        font-size: .9rem;
+    }
+    span:nth-child(1){
+        font-size: 1rem;
+    }
+`

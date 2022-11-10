@@ -18,7 +18,6 @@ export const CardRating = styled.div`
     border-radius: 5px;
     font-size: .7rem;
     text-align: center;
-    background-color: orange;
     margin: 0 auto;
     position: relative;
     top: 8px;
