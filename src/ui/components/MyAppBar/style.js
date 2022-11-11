@@ -1,3 +1,4 @@
+import Link from "next/link";
 import styled from "styled-components";
 
 export const AppBarWrapper = styled.div`
@@ -58,8 +59,17 @@ export const AppBarWrapper = styled.div`
     }
 `
 
-export const Logo = styled.div`
-    background-color: red;
-    height: 25px;
-    width: 82px;
+export const MyLogoWrapper = styled(Link)`
+    display: flex;
+    gap: 2px;
+    div{
+        color: #fff;
+        font-size: 1rem;
+        width: 20px;
+        height: 20px;
+        line-height: 20px;
+        text-align: center;
+        font-weight: bold;
+        background-color: #ad1457;
+    }
 `

@@ -1,4 +1,4 @@
-import { Backdrop, Box, Collapse, IconButton, List, ListItem, ListItemButton, ListItemIcon, ListItemText, Menu, MenuItem, Slide, Toolbar, useTheme } from "@mui/material";
+import { Backdrop, Box, Collapse, IconButton, List, ListItem, ListItemButton, ListItemIcon, ListItemText, Menu, MenuItem, Skeleton, Slide, Toolbar, useTheme } from "@mui/material";
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { navBarSlice } from "../../../store/slices/navBarSlice"
@@ -16,52 +16,61 @@ import { allCategories } from "../../../utils/allCategories";
 
 
 export default function NavBar() {
-    const [movieIds, setMovieIds] = useState();
-    const [categories, setCategories] = useState();
-
-    async function getData(){
-        const responseAllMovies = await Promise.all([
-            fetch(
-              `https://api.themoviedb.org/3/movie/popular?api_key=${apiKey}&language=en-US&page=1`
-              ).then(response => response.json()),
-            fetch(
-              `https://api.themoviedb.org/3/movie/top_rated?api_key=${apiKey}&language=en-US&page=1`
-              ).then(response => response.json()),
-        ]).then(response => {
-            const allMovies = response[0].results.concat(response[1].results);
-            setMovieIds(allMovies.map(movie => movie.id))
-        });
-
-        const urlAllMovies = movieIds.map(id => {
-            return `https://api.themoviedb.org/3/movie/${id}?api_key=${apiKey}&language=en-US`
-        })
-
-        const responseDetails = await Promise.all(urlAllMovies.map(async url => {
-            const response = await fetch(url);
-            return await response.json();
-        })).then(response => {
-
-            setCategories(allCategories(response))
-        })
-    
-    }
-
-    useEffect(() => {
-        getData()
-        console.log(categories)
-    }, [])
-
+    const [movieIds, setMovieIds] = useState([]);
+    const [categories, setCategories] = useState([]);
+    const [loading, setLoading] = useState(true)
 
     const openNav = useSelector(store => store.navBar.openNavBar)
     const [openCategories, setOpenCategories] = useState(false)
     const theme = useTheme()
 
-    const handleClick = () => setOpenCategories(!openCategories)
 
-    const handleClose = () => setAnchorEl(null)
+
+    useEffect(() => {
+        async function getData(){
+            const responseAllMovies = await Promise.all([
+                fetch(
+                  `https://api.themoviedb.org/3/movie/popular?api_key=${apiKey}&language=en-US&page=1`
+                  ).then(response => response.json()),
+                fetch(
+                  `https://api.themoviedb.org/3/movie/top_rated?api_key=${apiKey}&language=en-US&page=1`
+                  ).then(response => response.json()),
+            ]).then(response => {
+                const allMovies = response[0].results.concat(response[1].results);
+                setMovieIds(allMovies.map(movie => movie.id))
+            });
+    
+            const urlAllMovies = movieIds.map(id => {
+                return `https://api.themoviedb.org/3/movie/${id}?api_key=${apiKey}&language=en-US`
+            })
+    
+            const responseDetails = await Promise.all(urlAllMovies.map(async url => {
+                const response = await fetch(url);
+                return await response.json();
+            })).then(response => {
+    
+                setCategories(allCategories(response))
+            })
+        
+            setLoading(false)
+        }
+        getData()
+    })
+
+    const handleClick = () => {
+        setOpenCategories(!openCategories)
+    }
+
+    const toCapitalize = (string) => {
+        const firstLetter = string[0].toUpperCase();
+        
+        return firstLetter + string.slice(1)
+    }
+
+
     return(
         <Collapse in={openNav}>
-                <Box sx={{backgroundColor: theme.palette.background.default, height: '100vh', padding: '10px 0'}}>
+                <Box sx={{backgroundColor: theme.palette.background.paper, height: '100vh', padding: '10px 0'}}>
                     <Search />
                     <List>
                         <MyListItemButton href="/top-rated">
@@ -83,15 +92,19 @@ export default function NavBar() {
                         </MyListItemButton>
                         <Collapse in={openCategories}>
                             <List>
-                                {categories.map(category => {
-                                    return(
-                                        <ListItem key={category} sx={{fontSize: '.8rem'}}>
-                                            <ListItemButton href={`/category/${category}`}>
-                                                {category}
-                                            </ListItemButton>
-                                        </ListItem>
-                                    )
-                                })}
+                                {loading ? (
+                                    <Skeleton />
+                                ) : (
+                                    categories.map(category => {
+                                        return(
+                                            <ListItem key={category} sx={{fontSize: '.8rem'}}>
+                                                <ListItemButton href={`/category/${category}`}>
+                                                    {toCapitalize(category)}
+                                                </ListItemButton>
+                                            </ListItem>
+                                        )
+                                    })
+                                )}
                             </List>
                         </Collapse>
                     </List>

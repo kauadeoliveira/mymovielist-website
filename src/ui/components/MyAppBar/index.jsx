@@ -13,6 +13,7 @@ import { navBarSlice } from "../../../store/slices/navBarSlice"
 import { themeSlice } from "../../../store/slices/themeSlice"
 import NavBar from "../NavBar";
 import Image from "next/image";
+import MyLogo from "./MyLogo";
 
 export default function MyAppBar() {
     const theme = useTheme();
@@ -37,19 +38,17 @@ export default function MyAppBar() {
                         </IconButton>
                     </li>
                     <li>
-                        <Link href="/" className="logo">
-                            <Image src="/mml-logo.png" width={52} height={16} alt="My Movie List Logo"/>
-                        </Link>
+                        <MyLogo />
                     </li>
                     <li>
                         <IconButton size="small" onClick={handleChangeTheme}> 
-                            {darkTheme ? <DarkModeSharpIcon fontSize="inherit"/> : <LightModeSharpIcon fontSize="inherit"/>}
+                        {darkTheme ? <DarkModeSharpIcon fontSize="inherit"/> : <LightModeSharpIcon fontSize="inherit"/>}
                         </IconButton>
                     </li>
                 </ul>
                 <ul className="items-lg">
                     <li>
-                        <Link href="/">Logo</Link>
+                        <MyLogo />
                     </li>
                     <li>
                         <Link href="/top-rated">Top Rated</Link>
@@ -69,8 +68,8 @@ export default function MyAppBar() {
                         </IconButton>
                     </li>
                     <li>
-                        <IconButton size="small">
-                            <LightModeSharpIcon fontSize="inherit"/>
+                        <IconButton size="small" onClick={handleChangeTheme}>
+                        {darkTheme ? <DarkModeSharpIcon fontSize="inherit"/> : <LightModeSharpIcon fontSize="inherit"/>}
                         </IconButton>
                     </li>
                 </ul>

@@ -30,9 +30,9 @@ export default function MyApp({ Component, pageProps }) {
   const configureTheme = () => {
     const lightPalete = {
       primary: {
-        light: '#484848',
-        main: '#212121',
-        dark: '#000000'
+        light: '#e35183',
+        main: '#ad1457',
+        dark: '#78002e'
       },
     }
 

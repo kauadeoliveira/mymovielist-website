@@ -167,7 +167,7 @@ export default function Movie({ details, credits }) {
                 <h2>Cast</h2>
                 <Swiper
                     slidesPerView={4}
-                    spaceBetween={30}
+                    spaceBetween={80}
                     >
                     {credits.cast.map(actor => {
                         return(
