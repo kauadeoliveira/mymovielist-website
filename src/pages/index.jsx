@@ -46,12 +46,9 @@ export default function Home({ datas }) {
 
     <MyContainer nodisplay={openNavBar}>
       <MainBanner 
-       img={bannerMovie.backdrop_path}
-       pathname={bannerMovie.id}
-       description={{
-        title: bannerMovie.original_title,
-        overview: bannerMovie.overview
-       }}
+        img={bannerMovie.backdrop_path}
+        pathname={bannerMovie.id}
+        title={bannerMovie.original_title}
       />
 
       <TitlePage>All Movies</TitlePage>

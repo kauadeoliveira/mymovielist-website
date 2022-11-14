@@ -1,6 +1,10 @@
+import { useSelector } from "react-redux";
+import MyCard from "../../ui/components/MyCard";
 import { allCategories } from "../../utils/allCategories";
 import { apiKey } from "../../utils/apiKey";
 import { filterMovies } from "../../utils/filterMovies";
+import { toCapitalize } from "../../utils/toCapitalize";
+import { Movies, MyContainer, TitlePage } from "../style";
 
 export async function getStaticProps(context) {
     const { categoryId } = context.params
@@ -33,7 +37,7 @@ export async function getStaticProps(context) {
     const arrayAllMovies = responseAllMovies;
 
 
-    return { props: { categoryId } }
+    return { props: { categoryId, arrayAllMovies } }
 }
 
 
@@ -41,10 +45,10 @@ export async function getStaticPaths() {
     const response = await Promise.all([
         fetch(
             `https://api.themoviedb.org/3/movie/popular?api_key=${apiKey}&language=en-US&page=1`
-            ).then(response => response.json()),
+        ).then(response => response.json()),
         fetch(
             `https://api.themoviedb.org/3/movie/top_rated?api_key=${apiKey}&language=en-US&page=1`
-            ).then(response => response.json()),
+        ).then(response => response.json()),
     ]);
         
         
@@ -59,8 +63,9 @@ export async function getStaticPaths() {
     })
     
     const responseAllMovies = await Promise.all(
-        urlAllMovies.map((url) => {
-            return fetch(url).then(response => response.json())
+        urlAllMovies.map(async (url) => {
+            const response = await fetch(url);
+            return await response.json();
         })
     )
     
@@ -81,8 +86,24 @@ export async function getStaticPaths() {
 }
 
 
-export default function Category({ categoryId }) {
+export default function Category({ categoryId, arrayAllMovies }) {
+    const movies = filterMovies(arrayAllMovies, categoryId)
+    const { openNavBar } = useSelector(store => store.navBar)
     return(
-        <h1>{categoryId}</h1>
+        <MyContainer noDisplay={openNavBar}>
+            <TitlePage>{toCapitalize(categoryId)} Movies</TitlePage>
+            <Movies>
+                {movies.map(movie => {
+                    return(
+                    <MyCard
+                     key={movie.id}
+                     rating={movie.vote_average}
+                     img={movie.poster_path}
+                     pathname={movie.id}
+                    />
+                    )
+                })}
+            </Movies>
+        </MyContainer>
     )
 }

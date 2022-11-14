@@ -137,8 +137,10 @@ export default function Movie({ details, credits }) {
                         </h1>
                         <div className="advanced-details" style={{color: palette.text.primary}}>
                             <span className="rating" >
-                                {vote_average.toFixed(1)}
-                                <StarSharpIcon sx={{fontSize: '.5rem', color: 'orange'}}/>
+                                <p>{vote_average.toFixed(1)}</p>
+                                <p>
+                                    <StarSharpIcon sx={{fontSize: 'inherit', color: 'orange'}}/>
+                                </p>
                             </span>
                             <span className="genres" >
                                 {handleManyGenres(genres).map(genre => {

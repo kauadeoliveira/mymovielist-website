@@ -13,6 +13,7 @@ import { MyBackdrop, MyListItemButton } from "./styles";
 import { apiKey } from "../../../utils/apiKey";
 import { useEffect } from "react";
 import { allCategories } from "../../../utils/allCategories";
+import { toCapitalize } from "../../../utils/toCapitalize";
 
 
 export default function NavBar() {
@@ -59,12 +60,6 @@ export default function NavBar() {
 
     const handleClick = () => {
         setOpenCategories(!openCategories)
-    }
-
-    const toCapitalize = (string) => {
-        const firstLetter = string[0].toUpperCase();
-        
-        return firstLetter + string.slice(1)
     }
 
 

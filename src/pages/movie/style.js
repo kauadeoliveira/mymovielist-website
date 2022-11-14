@@ -39,7 +39,7 @@ export const TitleDescription = styled.div`
         display: flex;
         align-items: center;
         font-size: .5rem;
-        span:not(:last-child)::after{
+        span:not(:first-child)::before{
             content: '•';
             margin: 0 3px;
         }
@@ -47,6 +47,11 @@ export const TitleDescription = styled.div`
         .rating{
             display: flex;
             align-items: center;
+            gap: 1px;
+
+            p{
+                margin: 0;
+            }
         }
 
         .genres{

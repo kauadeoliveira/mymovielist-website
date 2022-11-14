@@ -10,7 +10,7 @@ export default function MyCard({ img, rating, pathname, description }) {
     <>
         <CardWrapper href={`/movie/${pathname}`}>
             <CardRating style={{backgroundColor: palette.primary.main}}>
-                {rating}
+                {rating ? rating.toFixed(1) : undefined}
             </CardRating>
             <CardContent description={description}>
                 <CardImage img={`https://image.tmdb.org/t/p/w500${img}`} description={description}/> 

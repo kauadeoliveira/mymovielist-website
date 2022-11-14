@@ -11,18 +11,11 @@ export const AppBarWrapper = styled.div`
     justify-content: center;
     width: 100%;
     padding: 5px 10px;
-    background-color: rgba(0,0,0,0.8);
     backdrop-filter: saturate(180%) blur(20px);
     font-size: .8rem;
     line-height: 28px;
+
     
-    a{
-        text-decoration: none;
-    }
-    
-    a.logo{
-        height: 34px;
-    }
     ul{
         padding: 0;
         gap: 30px;
@@ -32,12 +25,21 @@ export const AppBarWrapper = styled.div`
     ul.items-lg{
         display: flex;
         justify-content: space-around;
+        align-items: center;
+
+
+        a, li{
+            text-decoration: none;
+            cursor: pointer;
+            color: ${({colorText}) => colorText};
+            font-weight: bold;
+        }
     }
     ul.items-sm{
         display: none;
     }
 
-    @media (max-width: 620px){
+    @media (max-width: 850px){
         display: flex;
 
         ul.items-sm{

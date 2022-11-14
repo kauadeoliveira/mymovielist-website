@@ -29,8 +29,12 @@ export default function MyAppBar() {
 
     return(
         <div>
-            <AppBarWrapper 
-             style={{backgroundColor: theme.palette.mode === 'dark' ? 'rgba(0, 0, 0, 0.8)' : 'rgba(255, 255, 255, .65)'}}>
+            <AppBarWrapper
+             style={{
+                backgroundColor: theme.palette.mode === 'dark' ? 'rgba(0, 0, 0, 0.8)' : 'rgba(255, 255, 255, .65)',
+            }}
+             colorText={theme.palette.text.primary}
+            >
                 <ul className="items-sm">
                     <li>
                         <IconButton size="small" onClick={handleOpenMenu}>
@@ -47,9 +51,7 @@ export default function MyAppBar() {
                     </li>
                 </ul>
                 <ul className="items-lg">
-                    <li>
-                        <MyLogo />
-                    </li>
+                    <MyLogo />
                     <li>
                         <Link href="/top-rated">Top Rated</Link>
                     </li>
@@ -69,7 +71,7 @@ export default function MyAppBar() {
                     </li>
                     <li>
                         <IconButton size="small" onClick={handleChangeTheme}>
-                        {darkTheme ? <DarkModeSharpIcon fontSize="inherit"/> : <LightModeSharpIcon fontSize="inherit"/>}
+                            {darkTheme ? <DarkModeSharpIcon fontSize="inherit"/> : <LightModeSharpIcon fontSize="inherit"/>}
                         </IconButton>
                     </li>
                 </ul>

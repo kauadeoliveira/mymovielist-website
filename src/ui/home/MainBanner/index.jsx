@@ -1,12 +1,16 @@
+import Image from "next/image"
 import { BannerButton, BannerContent, BannerWrapper } from "./style"
 
-export default function MainBanner({ img, pathname, description }) {
+export default function MainBanner({ img, pathname, title }) {
+    console.log(img)
     return(
-        <BannerWrapper img={`https://image.tmdb.org/t/p/w500${img}`}>
-            <BannerContent>
-                <h2>{description.title}</h2>
-                <BannerButton variant="contained" href={`/movie/${pathname}`} color="primary">See about</BannerButton>
-            </BannerContent>
-        </BannerWrapper>
+        <>
+            <BannerWrapper img={`https://image.tmdb.org/t/p/w1280${img}`}>
+                <BannerContent>
+                    <h2>{title}</h2>
+                    <BannerButton variant="contained" href={`/movie/${pathname}`} color="primary">See about</BannerButton>
+                </BannerContent>
+            </BannerWrapper>
+        </>
     )
 }

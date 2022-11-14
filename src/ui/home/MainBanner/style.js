@@ -5,26 +5,45 @@ import styled from "styled-components";
 
 
 export const BannerWrapper = styled(Paper)`
-    width: 100%;
-    height: 200px;
+    width: 95vw;
+    height: 40vh;
     background-image: url(${({img}) => img});
     background-repeat: no-repeat;
+    margin: 0px auto 20px auto;
+    background-size: cover;
+    border-radius: 10px;
     background-position: left top;
-    margin-bottom: 20px;
+
+
+    @media(min-width: 768px){
+        height: 70vh;
+    }
+
+    @media(min-width: 920px){
+        height: 80vh;
+    }
 `
 
 export const BannerContent = styled.div`
     color: white;
-    width: 60%;
-    height: 100%;
-    padding: 5px 8px;
     display: flex;
     flex-direction: column;
     justify-content: center;
+    position: relative;
+    top: 50%;
+    left: 10px;
 
     h2{
         margin: 0;
-        font-size: 2rem;
+        font-size: 1.5rem;
+    }
+
+    @media(min-width: 768px){
+        left: 20px;
+
+        h2{
+            font-size: 3rem;
+        }
     }
 
 `

@@ -4,6 +4,9 @@ import { Paper } from "@mui/material";
 import Link from "next/link";
 
 export const CardWrapper = styled(Link)`
+    display: flex;
+    flex-direction: column;
+    align-items: center;
     text-decoration: none;
     transition: all 0.6s 0s ease;
     
@@ -18,7 +21,6 @@ export const CardRating = styled.div`
     border-radius: 5px;
     font-size: .7rem;
     text-align: center;
-    margin: 0 auto;
     position: relative;
     top: 8px;
     z-index: 1;
