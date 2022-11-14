@@ -1,12 +1,12 @@
 import { Button, Paper } from "@mui/material";
-import Link from "next/link";
+
 import styled from "styled-components";
 
 
 
 export const BannerWrapper = styled(Paper)`
     width: 95vw;
-    height: 40vh;
+    height: 30vh;
     background-image: url(${({img}) => img});
     background-repeat: no-repeat;
     margin: 0px auto 20px auto;

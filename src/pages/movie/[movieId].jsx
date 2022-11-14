@@ -130,12 +130,15 @@ export default function Movie({ details, credits }) {
             <Details>
                 <Poster img={`https://image.tmdb.org/t/p/w500${poster_path}`}/>
                 <Description>
-                    <TitleDescription>
+                    <TitleDescription
+                     textColorDisabled={palette.text.disabled}
+                     textColorPrimary={palette.text.primary}
+                    >
                         <h1 className="movie-title">
-                            <span className="title" style={{color: palette.text.primary}}>{original_title}</span>
-                            <span className="date" style={{color: palette.text.disabled}}>({release_date.split('-')[0]})</span>
+                            <span className="title">{original_title}</span>
+                            <span className="date">({release_date.split('-')[0]})</span>
                         </h1>
-                        <div className="advanced-details" style={{color: palette.text.primary}}>
+                        <div className="advanced-details">
                             <span className="rating" >
                                 <p>{vote_average.toFixed(1)}</p>
                                 <p>
@@ -152,9 +155,12 @@ export default function Movie({ details, credits }) {
                             <span className="runtime">{formatTime(runtime)}</span>
                         </div>
                     </TitleDescription>
-                    <OverviewDescription>
+                    <OverviewDescription
+                     textColorDisabled={palette.text.disabled}
+                     textColorPrimary={palette.text.primary}
+                    >
                         <p>{overview}</p>
-                        <ul className="directors" style={{color: palette.text.disabled}}>
+                        <ul className="directors">
                             <span>Direction:</span>
                             {handleRepeatedIds(directors).map(director => {
                                 return(
@@ -168,8 +174,7 @@ export default function Movie({ details, credits }) {
             <Cast>
                 <h2>Cast</h2>
                 <Swiper
-                    slidesPerView={4}
-                    spaceBetween={80}
+                    spaceBetween={10}
                     >
                     {credits.cast.map(actor => {
                         return(

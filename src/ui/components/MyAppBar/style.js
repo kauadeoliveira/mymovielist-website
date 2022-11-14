@@ -15,7 +15,9 @@ export const AppBarWrapper = styled.div`
     font-size: .8rem;
     line-height: 28px;
 
-    
+    a{
+        text-decoration: none;
+    }
     ul{
         padding: 0;
         gap: 30px;
@@ -29,7 +31,6 @@ export const AppBarWrapper = styled.div`
 
 
         a, li{
-            text-decoration: none;
             cursor: pointer;
             color: ${({colorText}) => colorText};
             font-weight: bold;

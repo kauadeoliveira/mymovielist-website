@@ -5,7 +5,7 @@ export const Details = styled.section`
     width: 100%;
     padding: 10px;
     display: grid;
-    grid-template-columns: 150px / 1fr;
+    grid-template-columns: 1fr / 1.7fr;
     gap: 5px;
 `
 
@@ -16,9 +16,17 @@ export  const Poster = styled(Paper)`
     background-image: url(${({img}) => img});
     background-size: cover;
     background-repeat: no-repeat;
+
+    @media(min-width: 768px){
+        height: 400px;
+        width: 266px;
+    }
+
 `
 
 export const Description = styled.div`
+    display: flex;
+    flex-direction: column;
     grid-column: 2;
     width: 100%;
     height: 100%;
@@ -33,12 +41,20 @@ export const TitleDescription = styled.div`
         margin: 0;
         font-size: 1rem; 
         flex-wrap: wrap;
+
+        .title{
+            color: ${({textColorPrimary}) => textColorPrimary};
+        }
+        .date{
+            color: ${({textColorDisabled}) => textColorDisabled}
+        }
     }
 
     .advanced-details{
         display: flex;
         align-items: center;
         font-size: .5rem;
+        color: ${({textColorPrimary}) => textColorPrimary};
         span:not(:first-child)::before{
             content: '•';
             margin: 0 3px;
@@ -69,6 +85,16 @@ export const TitleDescription = styled.div`
             }
         }
     }
+
+    @media(min-width: 768px){
+        .movie-title{
+            font-size: 1.5rem
+        }
+
+        .advanced-details{
+            font-size: 0.75rem
+        }
+    }
 `
 
 export const OverviewDescription = styled.div`
@@ -85,6 +111,7 @@ export const OverviewDescription = styled.div`
         list-style: none;
         margin: 0;
         padding: 0;
+        color: ${({textColorDisabled}) => textColorDisabled};
 
         li:not(:last-child)::after{
             content: ',';
@@ -94,6 +121,16 @@ export const OverviewDescription = styled.div`
     
     span, ul{
         font-size: .6rem;
+    }
+
+    @media(min-width: 768px){
+        p{
+            font-size: .975rem;
+        }
+
+        span, ul{
+           font-size: .9rem;
+    }
     }
 `
 
@@ -108,5 +145,15 @@ export const Cast = styled.div`
     
     .swiper{
         padding: 10px;
+
+        .swiper-slide{
+            width: 100.25px !important;
+        }
+    }
+
+    @media(min-width: 768px){
+        h2{
+            font-size: 1.5rem;
+        }
     }
 `
