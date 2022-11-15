@@ -1,4 +1,4 @@
-import { AppBarWrapper, Logo } from "./style";
+import { AppBarWrapper, Logo, MenuCategoriesContent } from "./style";
 
 import CloseSharpIcon from '@mui/icons-material/CloseSharp';
 import MenuSharpIcon from '@mui/icons-material/MenuSharp';
@@ -6,7 +6,7 @@ import LightModeSharpIcon from '@mui/icons-material/LightModeSharp';
 import DarkModeSharpIcon from '@mui/icons-material/DarkModeSharp';
 import SearchSharpIcon from '@mui/icons-material/SearchSharp';
 import ExpandMoreSharpIcon from '@mui/icons-material/ExpandMoreSharp';
-import { Collapse, IconButton, Menu, MenuItem, useTheme } from "@mui/material";
+import { Accordion, AccordionDetails, AccordionSummary, Collapse, IconButton, List, ListItemButton, Menu, MenuItem, useTheme } from "@mui/material";
 import Link from "next/link";
 import { useDispatch, useSelector } from "react-redux";
 import { navBarSlice } from "../../../store/slices/navBarSlice"
@@ -19,13 +19,20 @@ import { useState } from "react";
 import { allCategories } from "../../../utils/allCategories";
 import { apiKey } from "../../../utils/apiKey";
 import { Box } from "@mui/system";
+import { toCapitalize } from "../../../utils/toCapitalize";
 
 export default function MyAppBar() {
     const theme = useTheme();
 
-    const [categories, setCategories] = useState()
-    const [movieIds, setMovieIds] = useState()
+    const [categories, setCategories] = useState([])
+    const [movieIds, setMovieIds] = useState([])
 
+
+    const [anchorElMenuCategories, setAnchorElMenuCategories] = useState(null);
+    const openMenuCategories = Boolean(anchorElMenuCategories)
+
+    const handleOpenMenuCategories = (event) => setAnchorElMenuCategories(event.currentTarget);
+    const handleCloseMenuCategories = () => setAnchorElMenuCategories(null)
 
     const dispatch = useDispatch();
     const { openNavBar } = useSelector(store => store.navBar);
@@ -36,35 +43,35 @@ export default function MyAppBar() {
     const handleChangeTheme = () => dispatch(themeSlice.actions.changeTheme())    
 
  
-    // useEffect(() => {
-    //     async function getData(){
-    //         const responseAllMovies = await Promise.all([
-    //             fetch(
-    //               `https://api.themoviedb.org/3/movie/popular?api_key=${apiKey}&language=en-US&page=1`
-    //             ).then(response => response.json()),
-    //             fetch(
-    //               `https://api.themoviedb.org/3/movie/top_rated?api_key=${apiKey}&language=en-US&page=1`
-    //             ).then(response => response.json()),
-    //         ]).then(response => {
-    //             const allMovies = response[0].results.concat(response[1].results);
-    //             setMovieIds(allMovies.map(movie => movie.id))
-    //         });
+    useEffect(() => {
+        async function getData(){
+            const responseAllMovies = await Promise.all([
+                fetch(
+                  `https://api.themoviedb.org/3/movie/popular?api_key=${apiKey}&language=en-US&page=1`
+                ).then(response => response.json()),
+                fetch(
+                  `https://api.themoviedb.org/3/movie/top_rated?api_key=${apiKey}&language=en-US&page=1`
+                ).then(response => response.json()),
+            ]).then(response => {
+                const allMovies = response[0].results.concat(response[1].results);
+                setMovieIds(allMovies.map(movie => movie.id))
+            });
     
-    //         const urlAllMovies = movieIds.map(id => {
-    //             return `https://api.themoviedb.org/3/movie/${id}?api_key=${apiKey}&language=en-US`
-    //         })
+            const urlAllMovies = movieIds.map(id => {
+                return `https://api.themoviedb.org/3/movie/${id}?api_key=${apiKey}&language=en-US`
+            })
     
-    //         const responseDetails = await Promise.all(urlAllMovies.map(async url => {
-    //             const response = await fetch(url);
-    //             return await response.json();
-    //         })).then(response => {
+            const responseDetails = await Promise.all(urlAllMovies.map(async url => {
+                const response = await fetch(url);
+                return await response.json();
+            })).then(response => {
     
-    //             setCategories(allCategories(response))
-    //         })
+                setCategories(allCategories(response))
+            })
         
-    //     }
-    //     getData()
-    // })
+        }
+        getData()
+    })
 
 
 
@@ -102,8 +109,7 @@ export default function MyAppBar() {
                     <li>
                         <Link href="/now-playing">Now Playing</Link>
                     </li>
-                    <li
-                    >
+                    <li onClick={handleOpenMenuCategories}>
                         Categories
                     </li>
                     <li>
@@ -118,6 +124,29 @@ export default function MyAppBar() {
                     </li>
                 </ul>
             </AppBarWrapper>
+            <Menu
+             anchorEl={anchorElMenuCategories}
+             open={openMenuCategories}
+             onClose={handleCloseMenuCategories}
+             sx={{top: '8px'}}
+            >
+                {categories.map(category => {
+                    return(
+                        <Link
+                         href={`/category/${category}`}
+                         key={category}
+                         style={{
+                            textDecoration: 'none',
+                            color: theme.palette.text.primary 
+                        }}
+                        >
+                            <MenuItem onClick={handleCloseMenuCategories}>
+                                {toCapitalize(category)}
+                            </MenuItem>
+                        </Link>
+                    )
+                })}
+            </Menu>
             <NavBar />
         </div>
     )

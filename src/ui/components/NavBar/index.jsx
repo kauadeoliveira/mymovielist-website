@@ -88,7 +88,11 @@ export default function NavBar() {
                         <Collapse in={openCategories}>
                             <List>
                                 {loading ? (
-                                    <Skeleton />
+                                    <>
+                                        <Skeleton />
+                                        <Skeleton />
+                                        <Skeleton />
+                                    </>
                                 ) : (
                                     categories.map(category => {
                                         return(
