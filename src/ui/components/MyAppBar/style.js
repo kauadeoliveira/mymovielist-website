@@ -40,6 +40,11 @@ export const AppBarWrapper = styled.div`
         display: none;
     }
 
+    .search{
+        display: flex;
+        width: 50%;
+    }
+
     @media (max-width: 850px){
         display: flex;
 
@@ -57,6 +62,9 @@ export const AppBarWrapper = styled.div`
         }
 
         ul.items-lg{
+            display: none !important;
+        }
+        .search{
             display: none
         }
     }
@@ -74,5 +82,23 @@ export const MyLogoWrapper = styled(Link)`
         text-align: center;
         font-weight: bold;
         background-color: #ad1457;
+    }
+`
+
+export const SearchPageWrapper = styled.div`
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    width: 100vw;
+    height: 100vh;
+    background-color: ${({bgColor}) => bgColor};
+    z-index: 1500;
+    position: fixed;
+    padding: 0 10px;
+    .close-searchpage{
+        display: flex;
+        width: 100%;
+        justify-content: end;
+        padding: 10px 5px;
     }
 `

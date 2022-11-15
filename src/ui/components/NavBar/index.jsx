@@ -3,17 +3,17 @@ import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { navBarSlice } from "../../../store/slices/navBarSlice"
 import { store } from "../../../store/store"
-import Search from "./Search";
 import StarsSharpIcon from '@mui/icons-material/StarsSharp';
 import OndemandVideoSharpIcon from '@mui/icons-material/OndemandVideoSharp';
 import WhatshotSharpIcon from '@mui/icons-material/WhatshotSharp';
 import ExpandMoreSharpIcon from '@mui/icons-material/ExpandMoreSharp';
 import ListSharpIcon from '@mui/icons-material/ListSharp';
-import { MyBackdrop, MyListItemButton } from "./styles";
+import { MyBackdrop, MyListItemButton } from "./style";
 import { apiKey } from "../../../utils/apiKey";
 import { useEffect } from "react";
 import { allCategories } from "../../../utils/allCategories";
 import { toCapitalize } from "../../../utils/toCapitalize";
+import SearchBar from "../SearchBar";
 
 
 export default function NavBar() {
@@ -66,7 +66,7 @@ export default function NavBar() {
     return(
         <Collapse in={openNav}>
                 <Box sx={{backgroundColor: theme.palette.background.paper, height: '100vh', padding: '10px 0'}}>
-                    <Search />
+                    <SearchBar style={{margin:'50px auto 10px auto', width: '90%'}} />
                     <List>
                         <MyListItemButton href="/top-rated">
                             <span><OndemandVideoSharpIcon fontSize="inherit" color="primary"/></span>

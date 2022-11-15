@@ -1,4 +1,4 @@
-import { AppBarWrapper, Logo, MenuCategoriesContent } from "./style";
+import { AppBarWrapper, Logo, MenuCategoriesContent} from "./style";
 
 import CloseSharpIcon from '@mui/icons-material/CloseSharp';
 import MenuSharpIcon from '@mui/icons-material/MenuSharp';
@@ -6,7 +6,7 @@ import LightModeSharpIcon from '@mui/icons-material/LightModeSharp';
 import DarkModeSharpIcon from '@mui/icons-material/DarkModeSharp';
 import SearchSharpIcon from '@mui/icons-material/SearchSharp';
 import ExpandMoreSharpIcon from '@mui/icons-material/ExpandMoreSharp';
-import { Accordion, AccordionDetails, AccordionSummary, Collapse, IconButton, List, ListItemButton, Menu, MenuItem, useTheme } from "@mui/material";
+import { Accordion, AccordionDetails, AccordionSummary, Box, Collapse, IconButton, List, ListItemButton, Menu, MenuItem, Slide, useTheme } from "@mui/material";
 import Link from "next/link";
 import { useDispatch, useSelector } from "react-redux";
 import { navBarSlice } from "../../../store/slices/navBarSlice"
@@ -18,15 +18,18 @@ import { useEffect } from "react";
 import { useState } from "react";
 import { allCategories } from "../../../utils/allCategories";
 import { apiKey } from "../../../utils/apiKey";
-import { Box } from "@mui/system";
 import { toCapitalize } from "../../../utils/toCapitalize";
+import SearchPage from "./SearchPage";
+import { searchBarSlice } from "../../../store/slices/searchBarSlice";
+import SearchBar from "../SearchBar";
 
 export default function MyAppBar() {
     const theme = useTheme();
+    const dispatch = useDispatch();
+
 
     const [categories, setCategories] = useState([])
     const [movieIds, setMovieIds] = useState([])
-
 
     const [anchorElMenuCategories, setAnchorElMenuCategories] = useState(null);
     const openMenuCategories = Boolean(anchorElMenuCategories)
@@ -34,12 +37,16 @@ export default function MyAppBar() {
     const handleOpenMenuCategories = (event) => setAnchorElMenuCategories(event.currentTarget);
     const handleCloseMenuCategories = () => setAnchorElMenuCategories(null)
 
-    const dispatch = useDispatch();
+
+    const [openSearch, setOpenSearch] = useState(false)
+    const { openSearchBar } = useSelector(store => store.searchBarSlice)
+    const handleOpenSearch = () => dispatch(searchBarSlice.actions.open())
+
+
     const { openNavBar } = useSelector(store => store.navBar);
     const { darkTheme } = useSelector(store => store.theme);
 
     const handleOpenMenuSm = () => dispatch(navBarSlice.actions.open())
-
     const handleChangeTheme = () => dispatch(themeSlice.actions.changeTheme())    
 
  
@@ -71,7 +78,8 @@ export default function MyAppBar() {
         
         }
         getData()
-    })
+        console.log(openSearchBar)
+    }, [])
 
 
 
@@ -98,7 +106,7 @@ export default function MyAppBar() {
                         </IconButton>
                     </li>
                 </ul>
-                <ul className="items-lg">
+                <ul className="items-lg" style={{display: openSearchBar ? 'none' : 'flex'}}>
                     <MyLogo />
                     <li>
                         <Link href="/top-rated">Top Rated</Link>
@@ -112,7 +120,7 @@ export default function MyAppBar() {
                     <li onClick={handleOpenMenuCategories}>
                         Categories
                     </li>
-                    <li>
+                    <li onClick={handleOpenSearch}>
                         <IconButton size="small">
                             <SearchSharpIcon fontSize="inherit"/>
                         </IconButton>
@@ -123,7 +131,20 @@ export default function MyAppBar() {
                         </IconButton>
                     </li>
                 </ul>
+                <Slide 
+                direction="left"
+                 in={openSearchBar}
+                 mountOnEnter
+                 unmountOnExit
+                >
+                    <div className="search">
+                        <SearchBar 
+                         closeIcon={handleOpenSearch} 
+                         style={{width: '100%'}}/>
+                    </div>
+                </Slide>
             </AppBarWrapper>
+
             <Menu
              anchorEl={anchorElMenuCategories}
              open={openMenuCategories}
@@ -147,6 +168,7 @@ export default function MyAppBar() {
                     )
                 })}
             </Menu>
+
             <NavBar />
         </div>
     )
