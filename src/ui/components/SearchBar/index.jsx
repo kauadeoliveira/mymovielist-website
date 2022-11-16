@@ -1,11 +1,21 @@
 // Material UI imports
-import { IconButton, InputBase, useTheme } from "@mui/material";
-import SearchSharpIcon from '@mui/icons-material/SearchSharp';
+import { 
+    IconButton, 
+    InputBase, 
+    useTheme
+} from "@mui/material";
 
+// Icons
+import SearchSharpIcon from '@mui/icons-material/SearchSharp';
 import CloseSharpIcon from '@mui/icons-material/CloseSharp';
 
 // Components styled imports
-import { CloseIconWrapper, SearchIconWrapper, SearchInput, SearchWrapper } from "./style"
+import { 
+    CloseIconWrapper,
+    SearchIconWrapper,
+    SearchInput,
+    SearchWrapper
+} from "./style"
 
 
 export default function SearchBar({ style, closeIcon }) {

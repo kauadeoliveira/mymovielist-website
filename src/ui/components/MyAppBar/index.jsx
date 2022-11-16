@@ -140,7 +140,9 @@ export default function MyAppBar() {
                     <div className="search">
                         <SearchBar 
                          closeIcon={handleOpenSearch} 
-                         style={{width: '100%'}}/>
+                         style={{
+                            width: '100%',
+                            padding: '0 4px'}}/>
                     </div>
                 </Slide>
             </AppBarWrapper>

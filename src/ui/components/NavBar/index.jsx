@@ -1,19 +1,47 @@
-import { Backdrop, Box, Collapse, IconButton, List, ListItem, ListItemButton, ListItemIcon, ListItemText, Menu, MenuItem, Skeleton, Slide, Toolbar, useTheme } from "@mui/material";
-import { useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { navBarSlice } from "../../../store/slices/navBarSlice"
-import { store } from "../../../store/store"
+// Material UI Imports
+import { 
+    Backdrop,
+    Box,
+    Collapse,
+    IconButton,
+    List,
+    ListItem,
+    ListItemButton,
+    ListItemIcon,
+    ListItemText,
+    Menu,
+    MenuItem,
+    Skeleton,
+    Slide,
+    Toolbar,
+    useTheme
+} from "@mui/material";
+
+// Style and MyComponents
+import { MyBackdrop, MyListItemButton } from "./style";
+import SearchBar from "../SearchBar";
+
+// Icons
 import StarsSharpIcon from '@mui/icons-material/StarsSharp';
 import OndemandVideoSharpIcon from '@mui/icons-material/OndemandVideoSharp';
 import WhatshotSharpIcon from '@mui/icons-material/WhatshotSharp';
 import ExpandMoreSharpIcon from '@mui/icons-material/ExpandMoreSharp';
 import ListSharpIcon from '@mui/icons-material/ListSharp';
-import { MyBackdrop, MyListItemButton } from "./style";
+
+// React Imports
+import { useState, useEffect } from "react";
+
+// Redux and store imports
+import { useDispatch, useSelector } from "react-redux";
+import { navBarSlice } from "../../../store/slices/navBarSlice"
+import { store } from "../../../store/store"
+
+// Utils
 import { apiKey } from "../../../utils/apiKey";
-import { useEffect } from "react";
 import { allCategories } from "../../../utils/allCategories";
 import { toCapitalize } from "../../../utils/toCapitalize";
-import SearchBar from "../SearchBar";
+
+
 
 
 export default function NavBar() {
@@ -24,8 +52,6 @@ export default function NavBar() {
     const openNav = useSelector(store => store.navBar.openNavBar)
     const [openCategories, setOpenCategories] = useState(false)
     const theme = useTheme()
-
-
 
     useEffect(() => {
         async function getData(){
