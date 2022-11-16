@@ -33,11 +33,12 @@ export async function getServerSideProps() {
   return { props: { datas } }
 }
 
-
 export default function Home({ datas }) {
   const bannerMovie = datas[0];
   const movies = datas.slice(1)
   const { openNavBar } = useSelector(store => store.navBar)
+
+
   return(
     <>
     <Head>

@@ -22,7 +22,7 @@ import MyAppBar from '../ui/components/MyAppBar'
 
 // My Component
 export default function MyApp({ Component, pageProps }) {
-  // Mode theme
+// Mode theme
   const [mode, setMode] = useState(false)
   store.subscribe(() => setMode(store.getState().theme.darkTheme))
   

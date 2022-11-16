@@ -18,8 +18,8 @@ import {
 } from "@mui/material";
 
 // Style and MyComponents
-import { MyBackdrop, MyListItemButton } from "./style";
 import SearchBar from "../SearchBar";
+import { MyCollapse, MyListItemButton } from "./style"
 
 // Icons
 import StarsSharpIcon from '@mui/icons-material/StarsSharp';
@@ -38,20 +38,25 @@ import { store } from "../../../store/store"
 
 // Utils
 import { apiKey } from "../../../utils/apiKey";
-import { allCategories } from "../../../utils/allCategories";
-import { toCapitalize } from "../../../utils/toCapitalize";
+import { allCategories } from "../../../utils/functions/allCategories";
+import { toCapitalize } from "../../../utils/functions/toCapitalize";
+import { useWindowSize } from "../../../utils/hooks/useWindowSize";
 
 
 
 
 export default function NavBar() {
+
     const [movieIds, setMovieIds] = useState([]);
     const [categories, setCategories] = useState([]);
     const [loading, setLoading] = useState(true)
 
+    const dispatch = useDispatch()
     const openNav = useSelector(store => store.navBar.openNavBar)
     const [openCategories, setOpenCategories] = useState(false)
     const theme = useTheme()
+
+    const [height, width] = useWindowSize()
 
     useEffect(() => {
         async function getData(){
@@ -90,7 +95,7 @@ export default function NavBar() {
 
 
     return(
-        <Collapse in={openNav}>
+        <MyCollapse in={openNav}>
                 <Box sx={{backgroundColor: theme.palette.background.paper, height: '100vh', padding: '10px 0'}}>
                     <SearchBar style={{margin:'50px auto 10px auto', width: '90%'}} />
                     <List>
@@ -111,7 +116,7 @@ export default function NavBar() {
                             <span>Categories</span>
                             <span><ExpandMoreSharpIcon fontSize="inherit"/></span>
                         </MyListItemButton>
-                        <Collapse in={openCategories}>
+                        <MyCollapse in={openCategories}>
                             <List>
                                 {loading ? (
                                     <>
@@ -131,9 +136,9 @@ export default function NavBar() {
                                     })
                                 )}
                             </List>
-                        </Collapse>
+                        </MyCollapse>
                     </List>
                 </Box>
-        </Collapse>
+        </MyCollapse>
     )
 }

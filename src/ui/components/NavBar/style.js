@@ -2,6 +2,10 @@ import { Backdrop, Collapse, ListItemButton } from "@mui/material";
 import styled from "styled-components";
 
 
+export const MyCollapse = styled(Collapse)`
+    display: block;
+`
+
 export const SearchWrapper = styled.div`
     position: relative;
     border: 1px solid ${({ bdColor }) => bdColor};

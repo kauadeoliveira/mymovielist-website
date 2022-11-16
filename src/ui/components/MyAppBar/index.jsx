@@ -6,7 +6,7 @@ import LightModeSharpIcon from '@mui/icons-material/LightModeSharp';
 import DarkModeSharpIcon from '@mui/icons-material/DarkModeSharp';
 import SearchSharpIcon from '@mui/icons-material/SearchSharp';
 import ExpandMoreSharpIcon from '@mui/icons-material/ExpandMoreSharp';
-import { Accordion, AccordionDetails, AccordionSummary, Box, Collapse, IconButton, List, ListItemButton, Menu, MenuItem, Slide, useTheme } from "@mui/material";
+import { Accordion, AccordionDetails, AccordionSummary, Box, Collapse, IconButton, List, ListItemButton, Menu, MenuItem, Skeleton, Slide, useTheme } from "@mui/material";
 import Link from "next/link";
 import { useDispatch, useSelector } from "react-redux";
 import { navBarSlice } from "../../../store/slices/navBarSlice"
@@ -16,10 +16,9 @@ import Image from "next/image";
 import MyLogo from "./MyLogo";
 import { useEffect } from "react";
 import { useState } from "react";
-import { allCategories } from "../../../utils/allCategories";
+import { allCategories } from "../../../utils/functions/allCategories";
 import { apiKey } from "../../../utils/apiKey";
-import { toCapitalize } from "../../../utils/toCapitalize";
-import SearchPage from "./SearchPage";
+import { toCapitalize } from "../../../utils/functions/toCapitalize";
 import { searchBarSlice } from "../../../store/slices/searchBarSlice";
 import SearchBar from "../SearchBar";
 
@@ -27,7 +26,7 @@ export default function MyAppBar() {
     const theme = useTheme();
     const dispatch = useDispatch();
 
-
+    const [loading, setLoading] = useState(true)
     const [categories, setCategories] = useState([])
     const [movieIds, setMovieIds] = useState([])
 
@@ -76,12 +75,10 @@ export default function MyAppBar() {
                 setCategories(allCategories(response))
             })
         
+            setLoading(false)
         }
         getData()
-        console.log(openSearchBar)
     }, [])
-
-
 
     return(
         <div>
@@ -153,22 +150,25 @@ export default function MyAppBar() {
              onClose={handleCloseMenuCategories}
              sx={{top: '8px'}}
             >
-                {categories.map(category => {
-                    return(
-                        <Link
-                         href={`/category/${category}`}
-                         key={category}
-                         style={{
-                            textDecoration: 'none',
-                            color: theme.palette.text.primary 
-                        }}
-                        >
-                            <MenuItem onClick={handleCloseMenuCategories}>
-                                {toCapitalize(category)}
-                            </MenuItem>
-                        </Link>
+                {loading ? (
+                    <MenuItem>Loading...</MenuItem>
+                ):(
+                    categories.map(category => {
+                        return(
+                            <Link
+                             href={`/category/${category}`}
+                             key={category}
+                             style={{
+                                textDecoration: 'none',
+                                color: theme.palette.text.primary}}
+                            >
+                                <MenuItem onClick={handleCloseMenuCategories}>
+                                    {toCapitalize(category)}
+                                </MenuItem>
+                            </Link>
+                        )}
                     )
-                })}
+                )}
             </Menu>
 
             <NavBar />
