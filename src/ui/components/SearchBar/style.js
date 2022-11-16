@@ -1,11 +1,21 @@
 import styled from "styled-components"
 
 export const SearchWrapper = styled.div`
-    position: relative;
+    display: grid;
+    gap: 5px;
+    grid-template-rows: 1fr 1fr;
+`
+
+export const SearchResults = styled.div`
+    width: 100%;
+`
+
+export const MySearchBar = styled.div`
     border: 1px solid ${({ bdColor }) => bdColor};
     display: flex;
     align-items: center;
     border-radius: 4px;
+    width: 100%;
     `
 
 export const SearchIconWrapper = styled.div`

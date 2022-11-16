@@ -63,10 +63,10 @@ export default function NavBar() {
             const responseAllMovies = await Promise.all([
                 fetch(
                   `https://api.themoviedb.org/3/movie/popular?api_key=${apiKey}&language=en-US&page=1`
-                  ).then(response => response.json()),
+                ).then(response => response.json()),
                 fetch(
                   `https://api.themoviedb.org/3/movie/top_rated?api_key=${apiKey}&language=en-US&page=1`
-                  ).then(response => response.json()),
+                ).then(response => response.json()),
             ]).then(response => {
                 const allMovies = response[0].results.concat(response[1].results);
                 setMovieIds(allMovies.map(movie => movie.id))

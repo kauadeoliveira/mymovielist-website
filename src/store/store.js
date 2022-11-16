@@ -5,6 +5,7 @@ import { themeSlice } from "./slices/themeSlice";
 import { navBarSlice } from "./slices/navBarSlice";
 import { dataMoviesSlice } from "./slices/dataMoviesSlice";
 import { searchBarSlice } from "./slices/searchBarSlice";
+import { searchValueSlice } from "./slices/searchValueSlice";
 
 export const store = configureStore({
     reducer: combineReducers({
@@ -12,5 +13,6 @@ export const store = configureStore({
         navBar: navBarSlice.reducer,
         dataMovies: dataMoviesSlice.reducer,
         searchBarSlice: searchBarSlice.reducer,
+        searchValueSlice: searchValueSlice.reducer
     })
 })
