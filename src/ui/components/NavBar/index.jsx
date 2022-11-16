@@ -19,7 +19,7 @@ import {
 
 // Style and MyComponents
 import SearchBar from "../SearchBar";
-import { MyCollapse, MyListItemButton } from "./style"
+import { MyListItemButton } from "./style"
 
 // Icons
 import StarsSharpIcon from '@mui/icons-material/StarsSharp';
@@ -93,9 +93,14 @@ export default function NavBar() {
         setOpenCategories(!openCategories)
     }
 
+    useEffect(() => {
+        if(width > 850 && openNav){
+            dispatch(navBarSlice.actions.open())
+        }
+    }, [width])
 
     return(
-        <MyCollapse in={openNav}>
+        <Collapse in={openNav}>
                 <Box sx={{backgroundColor: theme.palette.background.paper, height: '100vh', padding: '10px 0'}}>
                     <SearchBar style={{margin:'50px auto 10px auto', width: '90%'}} />
                     <List>
@@ -116,7 +121,7 @@ export default function NavBar() {
                             <span>Categories</span>
                             <span><ExpandMoreSharpIcon fontSize="inherit"/></span>
                         </MyListItemButton>
-                        <MyCollapse in={openCategories}>
+                        <Collapse in={openCategories}>
                             <List>
                                 {loading ? (
                                     <>
@@ -136,9 +141,9 @@ export default function NavBar() {
                                     })
                                 )}
                             </List>
-                        </MyCollapse>
+                        </Collapse>
                     </List>
                 </Box>
-        </MyCollapse>
+        </Collapse>
     )
 }
