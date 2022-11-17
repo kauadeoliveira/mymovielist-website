@@ -15,6 +15,7 @@ import CloseSharpIcon from '@mui/icons-material/CloseSharp';
 import { 
     CloseIconWrapper,
     MySearchBar,
+    SearchBarWrapper,
     SearchIconWrapper,
     SearchInput,
     SearchResults,
@@ -22,30 +23,65 @@ import {
 } from "./style"
 import { useDispatch, useSelector } from "react-redux";
 import { searchValueSlice } from "../../../store/slices/searchValueSlice";
+import { useEffect, useRef, useState } from "react";
+import { searchBarSlice } from "../../../store/slices/searchBarSlice";
 
 
-export default function SearchBar({ style, closeIcon }) {
+export default function SearchBar({ results }) {
     const theme = useTheme();
     const dispatch = useDispatch();
+    const inputRef = useRef(null)
+
+
     const { searchValue } = useSelector(store => store.searchValueSlice)
+    const { openSearchBar } = useSelector(store => store.searchBarSlice)
+
+    const [showResults, setShowResults] = useState(false);
+    
+
     const handleInputValue = (event) => {
         dispatch(searchValueSlice.actions.onChangeValue(event.target.value))
         console.log(searchValue)
     }
+
+        const handleOpenResults = () => dispatch(searchBarSlice.actions.open(true))
+        const handleCloseResults = () => {
+            dispatch(searchBarSlice.actions.open(false))
+            inputRef.current.value = ''
+
+        dispatch(searchValueSlice.actions.onChangeValue(null))
+
+        }
+
     return(
-        <SearchWrapper style={style}>
-            <MySearchBar bdColor={theme.palette.text.primary} >
-                <SearchIconWrapper sx={{color: theme.palette.text.primary}}>
-                    <SearchSharpIcon fontSize="small"/>
-                </SearchIconWrapper>
-                <SearchInput placeholder="Search" onChange={handleInputValue}/>
-                <CloseIconWrapper closeIcon={closeIcon} onClick={closeIcon}>
+        <SearchBarWrapper>
+            <MySearchBar textPrimaryColor={theme.palette.text.primary}>
+                <div className="search-icon">
+                    <SearchSharpIcon fontSize="inherit"/>
+                </div>
+                <input
+                 type="text" 
+                 onFocus={handleOpenResults}
+                 onChange={handleInputValue}
+                 ref={inputRef}
+                />
+                <div className="close-icon" onClick={handleCloseResults}>
                     <CloseSharpIcon fontSize="inherit"/>
-                </CloseIconWrapper>
+                </div>
             </MySearchBar>
-            <SearchResults>
-            
+            <SearchResults showResults={openSearchBar} >
+                <List>
+                    {results ? (
+                        results.map(movie => {
+                            return(
+                                <ListItemButton key={movie.id}>{movie.title}</ListItemButton>
+                            )
+                        })
+                    ):(
+                        <>Nenhum Resultado...</>
+                    )}
+                </List>
             </SearchResults>
-        </SearchWrapper>
+        </SearchBarWrapper>
     )
 }

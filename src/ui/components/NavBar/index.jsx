@@ -50,6 +50,8 @@ export default function NavBar() {
     const [movieIds, setMovieIds] = useState([]);
     const [categories, setCategories] = useState([]);
     const [loading, setLoading] = useState(true)
+    const [allMovies, setAllMovies] = useState([])
+    const [resultsMovies, setResultsMovies] = useState(['No Results'])
 
     const dispatch = useDispatch()
     const openNav = useSelector(store => store.navBar.openNavBar)
@@ -57,6 +59,12 @@ export default function NavBar() {
     const theme = useTheme()
 
     const [height, width] = useWindowSize()
+
+    const { openSearchBar } = useSelector(store => store.searchBarSlice)
+
+    const { searchValue } = useSelector(store => store.searchValueSlice)
+
+
 
     useEffect(() => {
         async function getData(){
@@ -68,7 +76,7 @@ export default function NavBar() {
                   `https://api.themoviedb.org/3/movie/top_rated?api_key=${apiKey}&language=en-US&page=1`
                 ).then(response => response.json()),
             ]).then(response => {
-                const allMovies = response[0].results.concat(response[1].results);
+                setAllMovies(response[0].results.concat(response[1].results))
                 setMovieIds(allMovies.map(movie => movie.id))
             });
     
@@ -99,11 +107,20 @@ export default function NavBar() {
         }
     }, [width])
 
+    
+    useEffect(() => {
+        if(typeof searchValue === "string"){
+            const results = allMovies.filter(movie => movie.title.toLowerCase().includes(searchValue.toLowerCase()));
+            setResultsMovies(results)
+        }
+
+    }, [searchValue])
+
     return(
         <Collapse in={openNav}>
                 <Box sx={{backgroundColor: theme.palette.background.paper, height: '100vh', padding: '10px 0'}}>
-                    <SearchBar style={{margin:'50px auto 10px auto', width: '90%'}} />
-                    <List>
+                    <SearchBar results={resultsMovies}/>
+                    <List sx={{display: openSearchBar ? 'none' : 'block'}}>
                         <MyListItemButton href="/top-rated">
                             <span><OndemandVideoSharpIcon fontSize="inherit" color="primary"/></span>
                             <span>Top Rated</span>

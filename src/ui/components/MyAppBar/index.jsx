@@ -29,6 +29,7 @@ export default function MyAppBar() {
     const [loading, setLoading] = useState(true)
     const [categories, setCategories] = useState([])
     const [movieIds, setMovieIds] = useState([])
+    const [allMovies, setAllMovies] = useState([])
 
     const [anchorElMenuCategories, setAnchorElMenuCategories] = useState(null);
     const openMenuCategories = Boolean(anchorElMenuCategories)
@@ -59,7 +60,7 @@ export default function MyAppBar() {
                   `https://api.themoviedb.org/3/movie/top_rated?api_key=${apiKey}&language=en-US&page=1`
                 ).then(response => response.json()),
             ]).then(response => {
-                const allMovies = response[0].results.concat(response[1].results);
+                setAllMovies(response[0].results.concat(response[1].results));
                 setMovieIds(allMovies.map(movie => movie.id))
             });
     

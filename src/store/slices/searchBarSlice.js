@@ -8,8 +8,8 @@ export const searchBarSlice = createSlice({
     name: 'searchBar',
     initialState,
     reducers: {
-        open: (state) => {
-            state.openSearchBar = !state.openSearchBar
+        open: (state, action) => {
+            state.openSearchBar = action.payload
         }
     }
 })
