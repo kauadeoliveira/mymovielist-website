@@ -1,13 +1,12 @@
+import { Backdrop } from "@mui/material"
 import styled from "styled-components"
 
 export const SearchBarWrapper = styled.div`
-    display: flex;
-    margin-top: 60px;
-    width: 100%;
     flex-direction: column;
+
     `
 
-export const MySearchBar = styled.div`
+export const MyInputWrapper = styled.div`
     height: 30px;
     width: 100%;
     display: flex;
@@ -40,4 +39,15 @@ export const MySearchBar = styled.div`
 export const SearchResults = styled.div`
     width: 100%;
     display: ${({showResults}) => showResults ? 'block' : 'none'};
+`
+
+export const MyBackdrop = styled(Backdrop)`
+    align-items: flex-start;
+    height: 100vh;
+`
+
+export const MyBackdropContent = styled.div`
+    width: 100%;
+    height: 50%;
+    background-color: red;
 `

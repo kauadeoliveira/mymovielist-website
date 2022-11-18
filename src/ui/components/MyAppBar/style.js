@@ -1,3 +1,4 @@
+import { Collapse } from "@mui/material";
 import Link from "next/link";
 import styled from "styled-components";
 
@@ -25,7 +26,6 @@ export const AppBarWrapper = styled.div`
         list-style: none;
     }
     ul.items-lg{
-        display: flex;
         justify-content: space-around;
         align-items: center;
 
@@ -85,20 +85,8 @@ export const MyLogoWrapper = styled(Link)`
     }
 `
 
-export const SearchPageWrapper = styled.div`
-    display: flex;
-    flex-direction: column;
-    flex-wrap: wrap;
-    width: 100vw;
-    height: 100vh;
-    background-color: ${({bgColor}) => bgColor};
-    z-index: 1500;
-    position: fixed;
-    padding: 0 10px;
-    .close-searchpage{
-        display: flex;
-        width: 100%;
-        justify-content: end;
-        padding: 10px 5px;
-    }
+export const MyCollapse = styled(Collapse)`
+    width: 60%;
+    justify-content: center;
+
 `

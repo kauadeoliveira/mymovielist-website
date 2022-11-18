@@ -1,4 +1,4 @@
-import { AppBarWrapper, Logo, MenuCategoriesContent} from "./style";
+import { AppBarWrapper, Logo, MenuCategoriesContent, MyCollapse} from "./style";
 
 import CloseSharpIcon from '@mui/icons-material/CloseSharp';
 import MenuSharpIcon from '@mui/icons-material/MenuSharp';
@@ -38,16 +38,18 @@ export default function MyAppBar() {
     const handleCloseMenuCategories = () => setAnchorElMenuCategories(null)
 
 
-    const [openSearch, setOpenSearch] = useState(false)
     const { openSearchBar } = useSelector(store => store.searchBarSlice)
-    const handleOpenSearch = () => dispatch(searchBarSlice.actions.open())
-
-
+    
     const { openNavBar } = useSelector(store => store.navBar);
     const { darkTheme } = useSelector(store => store.theme);
 
     const handleOpenMenuSm = () => dispatch(navBarSlice.actions.open())
     const handleChangeTheme = () => dispatch(themeSlice.actions.changeTheme())    
+
+    const handleOpenSearch = () => {
+        dispatch(searchBarSlice.actions.open(true))
+    }
+    const handleCloseSearch = () => dispatch(searchBarSlice.actions.open(false))
 
  
     useEffect(() => {
@@ -129,20 +131,10 @@ export default function MyAppBar() {
                         </IconButton>
                     </li>
                 </ul>
-                <Slide 
-                direction="left"
-                 in={openSearchBar}
-                 mountOnEnter
-                 unmountOnExit
-                >
-                    <div className="search">
-                        <SearchBar 
-                         closeIcon={handleOpenSearch} 
-                         style={{
-                            width: '100%',
-                            padding: '0 4px'}}/>
-                    </div>
-                </Slide>
+
+                <Collapse in={openSearchBar} results={allMovies}>
+                    <SearchBar style={{width: '100%'}}/>
+                </Collapse>
             </AppBarWrapper>
 
             <Menu
