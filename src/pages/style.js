@@ -27,7 +27,7 @@ export const Movies = styled.div`
     }
 `
 export const MyContainer = styled.div`
-    display: ${({ nodisplay }) => nodisplay ? 'none' : 'flex'};
+    display: ${({ noDisplay }) => noDisplay ? 'none' : 'flex'};
     flex-direction: column;
     margin: 50px 0px 0px 0px;
     padding: 0 10px;

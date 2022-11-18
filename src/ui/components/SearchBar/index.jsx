@@ -63,6 +63,7 @@ export default function SearchBar({ results }) {
                  type="text" 
                  onFocus={handleOpenResults}
                  onChange={handleInputValue}
+                 placeholder="Search"
                  ref={inputRef}
                 />
                 <div className="close-icon" onClick={handleCloseResults}>
@@ -74,7 +75,7 @@ export default function SearchBar({ results }) {
                     {results ? (
                         results.map(movie => {
                             return(
-                                <ListItemButton key={movie.id}>{movie.title}</ListItemButton>
+                                <ListItemButton key={movie.id} href={`/movie/${movie.id}`}>{movie.title}</ListItemButton>
                             )
                         })
                     ):(

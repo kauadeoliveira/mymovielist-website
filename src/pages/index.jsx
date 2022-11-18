@@ -45,7 +45,7 @@ export default function Home({ datas }) {
       <title>Home</title>
     </Head>
 
-    <MyContainer nodisplay={openNavBar}>
+    <MyContainer noDisplay={openNavBar}>
       <MainBanner 
         img={bannerMovie.backdrop_path}
         pathname={bannerMovie.id}

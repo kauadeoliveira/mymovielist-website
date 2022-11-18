@@ -125,6 +125,8 @@ export default function Movie({ details, credits }) {
             return arrGenres
         }
     }
+
+    useEffect(() => console.log(openNavBar), [openNavBar])
     return(
         <MyContainer noDisplay={openNavBar}>
             <Details>
@@ -148,7 +150,7 @@ export default function Movie({ details, credits }) {
                             <span className="genres" >
                                 {handleManyGenres(genres).map(genre => {
                                     return(
-                                        <Link href="#" key={genre.id}>{genre.name}</Link>
+                                        <Link href={`/category/${genre.name.toLowerCase()}`} key={genre.id}>{genre.name}</Link>
                                     )
                                 })}
                             </span>

@@ -1,9 +1,9 @@
 import { useSelector } from "react-redux";
 import MyCard from "../../ui/components/MyCard";
-import { allCategories } from "../../utils/allCategories";
+import { allCategories } from "../../utils/functions/allCategories";
 import { apiKey } from "../../utils/apiKey";
-import { filterMovies } from "../../utils/filterMovies";
-import { toCapitalize } from "../../utils/toCapitalize";
+import { filterMovies } from "../../utils/functions/filterMovies";
+import { toCapitalize } from "../../utils/functions/toCapitalize";
 import { Movies, MyContainer, TitlePage } from "../style";
 
 export async function getStaticProps(context) {
