@@ -116,10 +116,11 @@ export default function NavBar() {
 
     }, [searchValue])
 
+ 
     return(
         <Collapse in={openNav}>
                 <Box sx={{backgroundColor: theme.palette.background.paper, height: '100vh', padding: '10px 0'}}>
-                    <SearchBar results={resultsMovies}/>
+                    <SearchBar style={{width: '90%', margin: '50px auto 0px auto'}} results={resultsMovies}/>
                     <List sx={{display: openSearchBar ? 'none' : 'block'}}>
                         <MyListItemButton href="/top-rated">
                             <span><OndemandVideoSharpIcon fontSize="inherit" color="primary"/></span>

@@ -42,27 +42,23 @@ export default function SearchBar({ results, style }) {
     const { openSearchBar } = useSelector(store => store.searchBarSlice)
 
     useEffect(() => {
-        setDocumentDOM(window.document)
-        console.log(documentDOM)
-        // if(documentDOM && openSearchBar){
-        //     documentDOM.body
-        // }
-    }, [])
+        window.document.body.style.overflow = openSearchBar ? 'hidden' : 'auto'
+    }, [openSearchBar])
+
+    useEffect(() => console.log(results), [searchValue])
 
     if(width > 850){
         return(
             <MyBackdrop open={true}>
                 <SearchBarWrapper style={style}>
                     <MyInputSearchBar />
-                    <div className="list-results-lg" style={{backgroundColor: theme.palette.background.paper}}>
-                        <List>
-                            {/* {results.map(movie => {
+                    <ul className="list-results-lg" style={{backgroundColor: theme.palette.background.paper}}>
+                            {results.map(movie => {
                                 return(
-                                    <ListItemButton key={movie.id} href={`/movie/${movie.id}`}>{movie.title}</ListItemButton>
+                                    <li key={movie.id} href={`/movie/${movie.id}`}>{movie.title}</li>
                                 )
-                            })} */}
-                        </List>
-                    </div>
+                            })}
+                    </ul>
                 </SearchBarWrapper>
             </MyBackdrop>
         )
@@ -70,7 +66,7 @@ export default function SearchBar({ results, style }) {
         return(
             <SearchBarWrapper style={style}>
                 <MyInputSearchBar />
-                <List sx={{display: openSearchBar ? 'block' : 'none'}}>
+                <List sx={{display: openSearchBar ? 'block' : 'none', overflow: 'scroll'}}>
                     {results ? (
                         results.map(movie => {
                             return(

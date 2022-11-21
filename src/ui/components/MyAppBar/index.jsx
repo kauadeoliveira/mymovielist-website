@@ -31,6 +31,8 @@ export default function MyAppBar() {
     const [movieIds, setMovieIds] = useState([])
     const [allMovies, setAllMovies] = useState([])
 
+    const [resultsMovies, setResultsMovies] = useState([])
+
     const [anchorElMenuCategories, setAnchorElMenuCategories] = useState(null);
     const openMenuCategories = Boolean(anchorElMenuCategories)
 
@@ -42,6 +44,9 @@ export default function MyAppBar() {
     
     const { openNavBar } = useSelector(store => store.navBar);
     const { darkTheme } = useSelector(store => store.theme);
+
+    const { searchValue } = useSelector(store => store.searchValueSlice);
+
 
     const handleOpenMenuSm = () => dispatch(navBarSlice.actions.open())
     const handleChangeTheme = () => dispatch(themeSlice.actions.changeTheme())    
@@ -82,6 +87,14 @@ export default function MyAppBar() {
         }
         getData()
     }, [])
+
+    useEffect(() => {
+        if(typeof searchValue === "string"){
+            const results = allMovies.filter(movie => movie.title.toLowerCase().includes(searchValue.toLowerCase()));
+            setResultsMovies(results)
+        }
+
+    }, [searchValue])
 
     return(
         <div>
@@ -132,9 +145,9 @@ export default function MyAppBar() {
                     </li>
                 </ul>
 
-                <Collapse in={openSearchBar} results={allMovies}>
-                    <SearchBar style={{width: '100%'}}/>
-                </Collapse>
+                <MyCollapse in={openSearchBar} sx={{display: openSearchBar ? 'flex' : 'none'}}>
+                    <SearchBar style={{width: '80%', border: 'none', top: '5px'}} results={resultsMovies}/>
+                </MyCollapse>
             </AppBarWrapper>
 
             <Menu

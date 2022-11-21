@@ -86,7 +86,8 @@ export const MyLogoWrapper = styled(Link)`
 `
 
 export const MyCollapse = styled(Collapse)`
-    width: 60%;
-    justify-content: center;
-
+    display: none;
+    @media(min-width: 850px){
+        display: flex;
+    }
 `
