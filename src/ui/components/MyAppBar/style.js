@@ -1,4 +1,4 @@
-import { Collapse } from "@mui/material";
+import { Collapse, Slide } from "@mui/material";
 import Link from "next/link";
 import styled from "styled-components";
 
@@ -85,9 +85,11 @@ export const MyLogoWrapper = styled(Link)`
     }
 `
 
-export const MyCollapse = styled(Collapse)`
-    display: none;
-    @media(min-width: 850px){
-        display: flex;
-    }
+
+export const MyBackdrop = styled.div`
+    position: fixed;
+    z-index: 10000;
+    background-color: rgba(0,0,0,0.48);
+    width: 100vw;
+    height: 100vh;
 `

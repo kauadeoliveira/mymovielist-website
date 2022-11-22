@@ -15,7 +15,7 @@ import {
 import { store } from "../store/store"
 
 // React imports
-import {  useMemo, useState } from 'react'
+import {  useEffect, useMemo, useState } from 'react'
 import HeaderAppBar from '../ui/components/HeaderAppBar'
 import MyAppBar from '../ui/components/MyAppBar'
 
@@ -54,6 +54,7 @@ export default function MyApp({ Component, pageProps }) {
     // Create Theme
     const theme = useMemo(() => createTheme(configureTheme()), [mode])
   
+    useEffect(() => console.log(theme), [])
 
     // JSX
   return (

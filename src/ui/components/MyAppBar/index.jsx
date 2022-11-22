@@ -1,4 +1,4 @@
-import { AppBarWrapper, Logo, MenuCategoriesContent, MyCollapse} from "./style";
+import { AppBarWrapper, Logo, MenuCategoriesContent, MyBackdrop, MyCollapse} from "./style";
 
 import CloseSharpIcon from '@mui/icons-material/CloseSharp';
 import MenuSharpIcon from '@mui/icons-material/MenuSharp';
@@ -21,10 +21,13 @@ import { apiKey } from "../../../utils/apiKey";
 import { toCapitalize } from "../../../utils/functions/toCapitalize";
 import { searchBarSlice } from "../../../store/slices/searchBarSlice";
 import SearchBar from "../SearchBar";
+import { useWindowSize } from "../../../utils/hooks/useWindowSize";
 
 export default function MyAppBar() {
     const theme = useTheme();
     const dispatch = useDispatch();
+    const [height, width] = useWindowSize();
+
 
     const [loading, setLoading] = useState(true)
     const [categories, setCategories] = useState([])
@@ -91,11 +94,19 @@ export default function MyAppBar() {
     useEffect(() => {
         if(typeof searchValue === "string"){
             const results = allMovies.filter(movie => movie.title.toLowerCase().includes(searchValue.toLowerCase()));
-            setResultsMovies(results)
+            if(results.length > 10){
+                setResultsMovies(results.slice(0, 10))
+            }else{
+                setResultsMovies(results)
+            }
         }
-
     }, [searchValue])
 
+    useEffect(() => {
+        if(width < 850 && !openNavBar){
+            dispatch(searchBarSlice.actions.open(false))
+        }
+    }, [width])
     return(
         <div>
             <AppBarWrapper
@@ -144,11 +155,19 @@ export default function MyAppBar() {
                         </IconButton>
                     </li>
                 </ul>
-
-                <MyCollapse in={openSearchBar} sx={{display: openSearchBar ? 'flex' : 'none'}}>
-                    <SearchBar style={{width: '80%', border: 'none', top: '5px'}} results={resultsMovies}/>
-                </MyCollapse>
             </AppBarWrapper>
+
+            <Slide 
+             direction="right" 
+             mountOnEnter 
+             unmountOnExit 
+             in={openSearchBar}
+            >
+                <MyBackdrop style={{display: width >= 850 ? 'block' : 'none'}}>
+                    <SearchBar style={{width: '80%'}} results={resultsMovies}/>
+                </MyBackdrop>
+            </Slide>
+
 
             <Menu
              anchorEl={anchorElMenuCategories}

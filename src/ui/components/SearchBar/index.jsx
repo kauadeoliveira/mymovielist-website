@@ -5,6 +5,7 @@ import {
     InputBase, 
     List, 
     ListItemButton, 
+    Slide, 
     useTheme
 } from "@mui/material";
 
@@ -17,6 +18,7 @@ import {
     CloseIconWrapper,
     MyBackdrop,
     MyBackdropContent,
+    MyList,
     MySearchBar,
     SearchBarWrapper,
     SearchIconWrapper,
@@ -49,24 +51,35 @@ export default function SearchBar({ results, style }) {
 
     if(width > 850){
         return(
-            <MyBackdrop open={true}>
-                <SearchBarWrapper style={style}>
-                    <MyInputSearchBar />
-                    <ul className="list-results-lg" style={{backgroundColor: theme.palette.background.paper}}>
-                            {results.map(movie => {
-                                return(
-                                    <li key={movie.id} href={`/movie/${movie.id}`}>{movie.title}</li>
-                                )
-                            })}
-                    </ul>
-                </SearchBarWrapper>
-            </MyBackdrop>
+            <SearchBarWrapper >
+                <div 
+                    className="appbar" 
+                    style={{
+                    backgroundColor: theme.palette.background.paper,
+                }}
+                >
+                    <MyInputSearchBar style={style}/>
+                </div>
+                <MyList 
+                 bgColor={theme.palette.background.paper}
+                 content={results.length >= 1 ? true : false}
+                 sx={style}
+                >
+                    {results.map(movie => {
+                        return(
+                            <ListItemButton key={movie.id}>
+                                {movie.title}
+                            </ListItemButton>
+                        )
+                    })}
+                </MyList>
+            </SearchBarWrapper>
         )
     }else{
         return(
             <SearchBarWrapper style={style}>
                 <MyInputSearchBar />
-                <List sx={{display: openSearchBar ? 'block' : 'none', overflow: 'scroll'}}>
+                <List sx={{display: openSearchBar ? 'block' : 'none'}}>
                     {results ? (
                         results.map(movie => {
                             return(

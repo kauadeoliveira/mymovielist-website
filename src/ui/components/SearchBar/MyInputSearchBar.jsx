@@ -9,7 +9,7 @@ import { searchValueSlice } from '../../../store/slices/searchValueSlice';
 import { searchBarSlice } from '../../../store/slices/searchBarSlice';
 
 
-export default function MyInputSearchBar() {
+export default function MyInputSearchBar({ style }) {
     const theme = useTheme()
     const inputRef = useRef(null)
     const dispatch = useDispatch();
@@ -34,7 +34,11 @@ export default function MyInputSearchBar() {
     }
 
     return(
-        <MyInputWrapper textPrimaryColor={theme.palette.text.primary}>
+        <MyInputWrapper
+         textPrimaryColor={theme.palette.text.primary}
+         style={style} 
+        >
+            
             <div className="search-icon">
                 <SearchSharpIcon fontSize="inherit"/>
             </div>

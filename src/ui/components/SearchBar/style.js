@@ -1,14 +1,21 @@
-import { Backdrop } from "@mui/material"
+import { Backdrop, List } from "@mui/material"
 import styled from "styled-components"
 
 export const SearchBarWrapper = styled.div`
     flex-direction: column;
+    width: 100%;
+
+    .appbar{
+        width: 100%;
+        padding: 5px 10px;
+        display: flex;
+        justify-content: center;
+    }
 
     `
 
 export const MyInputWrapper = styled.div`
     height: 30px;
-    width: 100%;
     display: flex;
     border: 1px solid ${({textPrimaryColor}) => textPrimaryColor};
     color: ${({textPrimaryColor}) => textPrimaryColor};
@@ -36,18 +43,8 @@ export const MyInputWrapper = styled.div`
 
 `
 
-export const SearchResults = styled.div`
-    width: 100%;
-    display: ${({showResults}) => showResults ? 'block' : 'none'};
-`
-
-export const MyBackdrop = styled(Backdrop)`
-    align-items: flex-start;
-    height: 100vh;
-`
-
-export const MyBackdropContent = styled.div`
-    width: 100%;
-    height: 50%;
-    background-color: red;
+export const MyList = styled(List)`
+    background-color: ${({ bgColor }) => bgColor};
+    display: ${({ content }) => content ? 'block' : 'none'};
+    margin: 0 auto;
 `

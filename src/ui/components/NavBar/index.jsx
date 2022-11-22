@@ -41,6 +41,7 @@ import { apiKey } from "../../../utils/apiKey";
 import { allCategories } from "../../../utils/functions/allCategories";
 import { toCapitalize } from "../../../utils/functions/toCapitalize";
 import { useWindowSize } from "../../../utils/hooks/useWindowSize";
+import { searchBarSlice } from "../../../store/slices/searchBarSlice";
 
 
 
@@ -54,7 +55,7 @@ export default function NavBar() {
     const [resultsMovies, setResultsMovies] = useState(['No Results'])
 
     const dispatch = useDispatch()
-    const openNav = useSelector(store => store.navBar.openNavBar)
+    const { openNavBar } = useSelector(store => store.navBar)
     const [openCategories, setOpenCategories] = useState(false)
     const theme = useTheme()
 
@@ -102,23 +103,36 @@ export default function NavBar() {
     }
 
     useEffect(() => {
-        if(width > 850 && openNav){
+        if(width > 850 && openNavBar){
             dispatch(navBarSlice.actions.open())
         }
+
+        if(width < 850 && !openNavBar && openSearchBar){
+            dispatch(searchBarSlice.actions.open(false))
+        }
     }, [width])
+
+    useEffect(() => {
+        if(width < 850 && !openNavBar && openSearchBar){
+            dispatch(searchBarSlice.actions.open(false))
+        }
+    }, [openNavBar])
 
     
     useEffect(() => {
         if(typeof searchValue === "string"){
             const results = allMovies.filter(movie => movie.title.toLowerCase().includes(searchValue.toLowerCase()));
-            setResultsMovies(results)
+            if(results.length > 10){
+                setResultsMovies(results.slice(0, 10))
+            }else{
+                setResultsMovies(results)
+            }
         }
-
     }, [searchValue])
 
  
     return(
-        <Collapse in={openNav}>
+        <Collapse in={openNavBar}>
                 <Box sx={{backgroundColor: theme.palette.background.paper, height: '100vh', padding: '10px 0'}}>
                     <SearchBar style={{width: '90%', margin: '50px auto 0px auto'}} results={resultsMovies}/>
                     <List sx={{display: openSearchBar ? 'none' : 'block'}}>
