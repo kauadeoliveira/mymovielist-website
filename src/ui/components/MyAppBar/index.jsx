@@ -22,6 +22,7 @@ import { toCapitalize } from "../../../utils/functions/toCapitalize";
 import { searchBarSlice } from "../../../store/slices/searchBarSlice";
 import SearchBar from "../SearchBar";
 import { useWindowSize } from "../../../utils/hooks/useWindowSize";
+import { CategoryMenu } from "./CategoryMenu";
 
 export default function MyAppBar() {
     const theme = useTheme();
@@ -36,11 +37,9 @@ export default function MyAppBar() {
 
     const [resultsMovies, setResultsMovies] = useState([])
 
-    const [anchorElMenuCategories, setAnchorElMenuCategories] = useState(null);
-    const openMenuCategories = Boolean(anchorElMenuCategories)
-
-    const handleOpenMenuCategories = (event) => setAnchorElMenuCategories(event.currentTarget);
-    const handleCloseMenuCategories = () => setAnchorElMenuCategories(null)
+    const [openCategoryMenu, setOpenCategoryMenu] = useState()
+    const handleOpenMenuCategories = () => setOpenCategoryMenu(true);
+    // const handleCl
 
 
     const { openSearchBar } = useSelector(store => store.searchBarSlice)
@@ -60,6 +59,44 @@ export default function MyAppBar() {
     const handleCloseSearch = () => dispatch(searchBarSlice.actions.open(false))
 
  
+    // useEffect(() => {
+    //     async function getData(){
+    //         const responseAllMovies = await Promise.all([
+    //             fetch(
+    //               `https://api.themoviedb.org/3/movie/popular?api_key=${apiKey}&language=en-US&page=1`
+    //             ).then(response => response.json()),
+    //             fetch(
+    //               `https://api.themoviedb.org/3/movie/top_rated?api_key=${apiKey}&language=en-US&page=1`
+    //             ).then(response => response.json()),
+    //         ]).then(response => {
+    //             setAllMovies(response[0].results.concat(response[1].results));
+    //             setMovieIds(allMovies.map(movie => movie.id))
+    //         });
+
+    //         setLoading(false)
+    //     }
+    //     getData()
+    // }, [])
+
+    // useEffect(() => {
+    //     async function getCategories() {
+    //         const urlAllMovies = movieIds.map(id => {
+    //             return `https://api.themoviedb.org/3/movie/${id}?api_key=${apiKey}&language=en-US`
+    //         })
+    
+    //         const responseDetails = await Promise.all(urlAllMovies.map(async url => {
+    //             const response = await fetch(url);
+    //             return await response.json();
+    //         })).then(response => {
+    //             setCategories(allCategories(response))
+    //         })
+    //     }
+    //     if(movieIds){
+    //         getCategories()
+    //     }
+    // }, [])
+
+    
     useEffect(() => {
         async function getData(){
             const responseAllMovies = await Promise.all([
@@ -70,7 +107,7 @@ export default function MyAppBar() {
                   `https://api.themoviedb.org/3/movie/top_rated?api_key=${apiKey}&language=en-US&page=1`
                 ).then(response => response.json()),
             ]).then(response => {
-                setAllMovies(response[0].results.concat(response[1].results));
+                setAllMovies(response[0].results.concat(response[1].results))
                 setMovieIds(allMovies.map(movie => movie.id))
             });
     
@@ -89,7 +126,7 @@ export default function MyAppBar() {
             setLoading(false)
         }
         getData()
-    }, [])
+    })
 
     useEffect(() => {
         if(typeof searchValue === "string"){
@@ -107,6 +144,12 @@ export default function MyAppBar() {
             dispatch(searchBarSlice.actions.open(false))
         }
     }, [width])
+
+    useEffect(() => {
+        window.document.body.style.overflow = openCategoryMenu ? 'hidden' : 'auto'
+    }, [openCategoryMenu])
+
+    
     return(
         <div>
             <AppBarWrapper
@@ -167,35 +210,7 @@ export default function MyAppBar() {
                     <SearchBar style={{width: '80%'}} results={resultsMovies}/>
                 </MyBackdrop>
             </Slide>
-
-
-            <Menu
-             anchorEl={anchorElMenuCategories}
-             open={openMenuCategories}
-             onClose={handleCloseMenuCategories}
-             sx={{top: '8px'}}
-            >
-                {loading ? (
-                    <MenuItem>Loading...</MenuItem>
-                ):(
-                    categories.map(category => {
-                        return(
-                            <Link
-                             href={`/category/${category}`}
-                             key={category}
-                             style={{
-                                textDecoration: 'none',
-                                color: theme.palette.text.primary}}
-                            >
-                                <MenuItem onClick={handleCloseMenuCategories}>
-                                    {toCapitalize(category)}
-                                </MenuItem>
-                            </Link>
-                        )}
-                    )
-                )}
-            </Menu>
-
+            <CategoryMenu open={openCategoryMenu} categories={categories} />
             <NavBar />
         </div>
     )

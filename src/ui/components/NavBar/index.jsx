@@ -98,6 +98,7 @@ export default function NavBar() {
         getData()
     })
 
+
     const handleClick = () => {
         setOpenCategories(!openCategories)
     }
