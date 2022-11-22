@@ -6,7 +6,8 @@ import { useEffect } from "react";
 import { toCapitalize } from "../../../utils/functions/toCapitalize";
 
 
-export function CategoryMenu({ open, categories }) {
+export function CategoryMenu({ open, categories, onClose }) {
+
     const theme = useTheme()
     return(
         <Slide
@@ -18,7 +19,7 @@ export function CategoryMenu({ open, categories }) {
            <MyBackdrop>
                 <CategoryMenuWrapper style={{backgroundColor: theme.palette.background.paper}}>
                     <div className="toolbar">
-                        <IconButton>
+                        <IconButton onClick={onClose}>
                             <KeyboardBackspaceSharpIcon />
                         </IconButton>
                         <span>Categories</span>

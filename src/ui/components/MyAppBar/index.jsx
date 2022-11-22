@@ -37,9 +37,8 @@ export default function MyAppBar() {
 
     const [resultsMovies, setResultsMovies] = useState([])
 
-    const [openCategoryMenu, setOpenCategoryMenu] = useState()
-    const handleOpenMenuCategories = () => setOpenCategoryMenu(true);
-    // const handleCl
+    const [openCategoryMenu, setOpenCategoryMenu] = useState(false);
+    const handleCategoryMenu = () => setOpenCategoryMenu(!openCategoryMenu);
 
 
     const { openSearchBar } = useSelector(store => store.searchBarSlice)
@@ -184,7 +183,7 @@ export default function MyAppBar() {
                     <li>
                         <Link href="/now-playing">Now Playing</Link>
                     </li>
-                    <li onClick={handleOpenMenuCategories}>
+                    <li onClick={handleCategoryMenu}>
                         Categories
                     </li>
                     <li onClick={handleOpenSearch}>
@@ -210,7 +209,11 @@ export default function MyAppBar() {
                     <SearchBar style={{width: '80%'}} results={resultsMovies}/>
                 </MyBackdrop>
             </Slide>
-            <CategoryMenu open={openCategoryMenu} categories={categories} />
+            <CategoryMenu 
+             open={openCategoryMenu} 
+             categories={categories}  
+             onClose={handleCategoryMenu}
+            />
             <NavBar />
         </div>
     )
