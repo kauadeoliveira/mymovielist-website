@@ -6,9 +6,19 @@ import ArrowCircleUpIcon from '@mui/icons-material/ArrowCircleUp';
 import { Divider, IconButton, useTheme } from "@mui/material";
 import Link from "next/link";
 import MyLogo from "../MyAppBar/MyLogo";
+import { useEffect, useState } from "react";
 
 export default function MyFooter() {
     const theme = useTheme()
+    const [backToTop, setBackToTop] = useState(false)
+
+    const handleBackToTop = () => setBackToTop(true)
+
+    useEffect(() => {
+        if(backToTop){
+            window.scrollTo({top: 0, left: 0, behavior: 'smooth'})
+        }
+    }, [backToTop])
     return(
         <>
             <MyFooterWrapper>
@@ -27,7 +37,9 @@ export default function MyFooter() {
                     </li>
                 </ul>
                 <span>by Kauã de Oliveira Lopes</span>
-                <IconButton sx={{fontSize: 'inherit'}}>
+                <IconButton sx={{fontSize: 'inherit'}} onClick={() => {
+                    window.scrollTo({top: 0, left: 0, behavior: 'smooth'})
+                }}>
                     <ArrowCircleUpIcon fontSize="inherit"/>
                 </IconButton>
             </MyFooterContent>

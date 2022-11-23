@@ -4,6 +4,9 @@ export const MyFooterWrapper = styled.footer`
     width: 100%;
     margin-top: 40px;
     padding: 10px;
+    z-index: 1;
+    position: relative;
+    bottom: 0;
 `
 
 export const MyFooterContent = styled.div`
@@ -34,5 +37,7 @@ export const MyFooterContent = styled.div`
 
     span{
         font-size: .7rem;
+        font-family: 'Patrick Hand', cursive;
+
     }
 `

@@ -2,11 +2,15 @@ import { Paper } from "@mui/material";
 import styled from "styled-components";
 
 export const Details = styled.section`
-    width: 100%;
+    /* width: 100%; */
     padding: 10px;
     display: grid;
-    grid-template-columns: 1fr / 1.7fr;
-    gap: 5px;
+    grid-template-columns: 150px 1fr;
+    gap: 10px;
+
+    @media(min-width: 768px){
+        grid-template-columns: 266px 1fr;
+    }
 `
 
 export  const Poster = styled(Paper)`
@@ -20,6 +24,7 @@ export  const Poster = styled(Paper)`
     @media(min-width: 768px){
         height: 400px;
         width: 266px;
+
     }
 
 `
@@ -28,8 +33,9 @@ export const Description = styled.div`
     display: flex;
     flex-direction: column;
     grid-column: 2;
-    width: 100%;
     height: 100%;
+    padding: 10px 0;
+
 `
 
 export const TitleDescription = styled.div`
@@ -136,7 +142,6 @@ export const OverviewDescription = styled.div`
 
 export const Cast = styled.div`
     width: 100%;
-    height: 30vh;
     h2{
         margin: 0;
         padding: 0 10px;

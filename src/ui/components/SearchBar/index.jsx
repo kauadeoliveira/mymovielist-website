@@ -67,7 +67,7 @@ export default function SearchBar({ results, style }) {
                 >
                     {results.map(movie => {
                         return(
-                            <ListItemButton key={movie.id}>
+                            <ListItemButton key={movie.id} href={`/movie/${movie.id}`}>
                                 {movie.title}
                             </ListItemButton>
                         )

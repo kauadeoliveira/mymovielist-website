@@ -22,6 +22,7 @@ import { toCapitalize } from "../../../utils/functions/toCapitalize";
 import { searchBarSlice } from "../../../store/slices/searchBarSlice";
 import SearchBar from "../SearchBar";
 import { useWindowSize } from "../../../utils/hooks/useWindowSize";
+import { palette } from "@mui/system";
 
 export default function MyAppBar() {
     const theme = useTheme();
@@ -216,7 +217,21 @@ export default function MyAppBar() {
                 {
                     categories.map(category => {
                         return(
-                            <MenuItem key={category}>{toCapitalize(category)}</MenuItem>
+                            <MenuItem 
+                                key={category}
+                                onClick={handleCloseCategoryMenu}
+                            >
+                                <Link 
+                                 target="_blank"
+                                 href={`/category/${category}`}
+                                 style={{
+                                    textDecoration: 'none',
+                                    color: theme.palette.text.primary
+                                    }}
+                                >
+                                    {toCapitalize(category)}
+                                </Link>
+                            </MenuItem>
                         )
                     })
                 }
