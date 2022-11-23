@@ -37,7 +37,6 @@ export const MyFooterContent = styled.div`
 
     span{
         font-size: .7rem;
-        font-family: 'Patrick Hand', cursive;
 
     }
 `

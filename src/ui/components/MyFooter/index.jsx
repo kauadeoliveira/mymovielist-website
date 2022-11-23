@@ -24,19 +24,21 @@ export default function MyFooter() {
             <MyFooterWrapper>
             <Divider />
             <MyFooterContent colorPrimary={theme.palette.text.primary}>
-                <ul className="socials" >
-                    <li>
-                        <Link href="https://www.linkedin.com/in/kauadeoliveira/">
-                            <LinkedInIcon fontSize="inherit"/>
-                        </Link>
-                    </li>
-                    <li>
-                        <Link href="https://github.com/kauadeoliveira">
-                            <GitHubIcon fontSize="inherit"/>
-                        </Link>
-                    </li>
-                </ul>
-                <span>by Kauã de Oliveira Lopes</span>
+                <div className="right-column">
+                    
+                    <ul className="socials" >
+                        <li>
+                            <Link href="https://www.linkedin.com/in/kauadeoliveira/">
+                                <LinkedInIcon fontSize="inherit"/>/kauadeoliveira
+                            </Link>
+                        </li>
+                        <li>
+                            <Link href="https://github.com/kauadeoliveira">
+                                <GitHubIcon fontSize="inherit"/>/kauadeoliveira
+                            </Link>
+                        </li>
+                    </ul>
+                </div>
                 <IconButton sx={{fontSize: 'inherit'}} onClick={() => {
                     window.scrollTo({top: 0, left: 0, behavior: 'smooth'})
                 }}>
