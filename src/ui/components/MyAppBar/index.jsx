@@ -22,7 +22,6 @@ import { toCapitalize } from "../../../utils/functions/toCapitalize";
 import { searchBarSlice } from "../../../store/slices/searchBarSlice";
 import SearchBar from "../SearchBar";
 import { useWindowSize } from "../../../utils/hooks/useWindowSize";
-import { CategoryMenu } from "./CategoryMenu";
 
 export default function MyAppBar() {
     const theme = useTheme();
@@ -36,10 +35,6 @@ export default function MyAppBar() {
     const [allMovies, setAllMovies] = useState([])
 
     const [resultsMovies, setResultsMovies] = useState([])
-
-    const [openCategoryMenu, setOpenCategoryMenu] = useState(false);
-    const handleCategoryMenu = () => setOpenCategoryMenu(!openCategoryMenu);
-
 
     const { openSearchBar } = useSelector(store => store.searchBarSlice)
     
@@ -56,6 +51,17 @@ export default function MyAppBar() {
         dispatch(searchBarSlice.actions.open(true))
     }
     const handleCloseSearch = () => dispatch(searchBarSlice.actions.open(false))
+
+
+
+
+    // Menu
+    const [categoryAnchorEl, setCategoryAnchorEl] = useState(null);
+    const openCategory = Boolean(categoryAnchorEl);
+
+    const handleClickCategoryMenu = (event) => setCategoryAnchorEl(event.currentTarget);
+    const handleCloseCategoryMenu = () => setCategoryAnchorEl(null);
+
 
  
     // useEffect(() => {
@@ -144,10 +150,6 @@ export default function MyAppBar() {
         }
     }, [width])
 
-    useEffect(() => {
-        window.document.body.style.overflow = openCategoryMenu ? 'hidden' : 'auto'
-    }, [openCategoryMenu])
-
     
     return(
         <div>
@@ -183,7 +185,9 @@ export default function MyAppBar() {
                     <li>
                         <Link href="/now-playing">Now Playing</Link>
                     </li>
-                    <li onClick={handleCategoryMenu}>
+                    <li
+                     onClick={handleClickCategoryMenu}
+                    >
                         Categories
                     </li>
                     <li onClick={handleOpenSearch}>
@@ -199,6 +203,20 @@ export default function MyAppBar() {
                 </ul>
             </AppBarWrapper>
 
+            <Menu
+             anchorEl={categoryAnchorEl}         
+             open={openCategory}    
+             onClose={handleCloseCategoryMenu}
+            >
+                {
+                    categories.map(category => {
+                        return(
+                            <MenuItem key={category}>{toCapitalize(category)}</MenuItem>
+                        )
+                    })
+                }
+            </Menu>
+
             <Slide 
              direction="right" 
              mountOnEnter 
@@ -209,11 +227,6 @@ export default function MyAppBar() {
                     <SearchBar style={{width: '80%'}} results={resultsMovies}/>
                 </MyBackdrop>
             </Slide>
-            <CategoryMenu 
-             open={openCategoryMenu} 
-             categories={categories}  
-             onClose={handleCategoryMenu}
-            />
             <NavBar />
         </div>
     )
