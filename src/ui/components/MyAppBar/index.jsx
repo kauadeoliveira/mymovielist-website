@@ -150,6 +150,11 @@ export default function MyAppBar() {
         }
     }, [width])
 
+    useEffect(() => {
+        if(width < 850 && openCategory){
+            handleCloseCategoryMenu()
+        }
+    }, [width])
     
     return(
         <div>
