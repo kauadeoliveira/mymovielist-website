@@ -7,21 +7,16 @@ import { Divider, IconButton, useTheme } from "@mui/material";
 import Link from "next/link";
 import MyLogo from "../MyAppBar/MyLogo";
 import { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
 
 export default function MyFooter() {
     const theme = useTheme()
-    const [backToTop, setBackToTop] = useState(false)
 
-    const handleBackToTop = () => setBackToTop(true)
+    const { openNavBar } = useSelector(store => store.navBar)
 
-    useEffect(() => {
-        if(backToTop){
-            window.scrollTo({top: 0, left: 0, behavior: 'smooth'})
-        }
-    }, [backToTop])
     return(
         <>
-            <MyFooterWrapper>
+            <MyFooterWrapper style={{display: openNavBar ? 'none' : 'block'}}>
             <Divider />
             <MyFooterContent colorPrimary={theme.palette.text.primary}>
                 <div className="right-column">
@@ -29,19 +24,23 @@ export default function MyFooter() {
                     <ul className="socials" >
                         <li>
                             <Link href="https://www.linkedin.com/in/kauadeoliveira/">
-                                <LinkedInIcon fontSize="inherit"/>/kauadeoliveira
+                                <LinkedInIcon fontSize="inherit"/>
+                                <span>/kauadeoliveira</span>
                             </Link>
                         </li>
                         <li>
                             <Link href="https://github.com/kauadeoliveira">
-                                <GitHubIcon fontSize="inherit"/>/kauadeoliveira
+                                <GitHubIcon fontSize="inherit"/>
+                                <span>/kauadeoliveira</span>
                             </Link>
                         </li>
                     </ul>
                 </div>
-                <IconButton sx={{fontSize: 'inherit'}} onClick={() => {
+                <IconButton 
+                 onClick={() => {
                     window.scrollTo({top: 0, left: 0, behavior: 'smooth'})
-                }}>
+                 }}
+                >
                     <ArrowCircleUpIcon fontSize="inherit"/>
                 </IconButton>
             </MyFooterContent>

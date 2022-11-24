@@ -21,22 +21,29 @@ export const MyFooterContent = styled.div`
     .socials{
         display: flex;
         list-style: none;
-        gap: 5px;
+        gap: 8px;
         margin: 0;
         margin-block: 0;
+
         
         li{
             font-size: 1.2rem;
+
+        span{
+            font-size: .95rem;
+        }
         }
         
         a{
+            display: flex;
+            align-items: center;
             color: ${({ colorPrimary }) => colorPrimary};
             text-decoration: none;
         }
     }
 
-    span{
-        font-size: .7rem;
-
+    button{
+        font-size: 1.2rem;
     }
+
 `
